@@ -1,0 +1,115 @@
+/* 
+.react-calendar {
+  border: none;
+  font-family: 'Poppins', sans-serif;
+  width: 100%;
+  height: 100%;
+  font-size: 1.1rem; 
+}
+
+
+.react-calendar__tile {
+  border-radius: 100%;
+  aspect-ratio: 1;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.8rem; 
+  text-align: center;
+  transition: background-color 0.2s ease;
+}
+
+.react-calendar__tile.calendar-today {
+  background-color: #F4D6D8 !important;
+  color: black !important;
+}
+
+.react-calendar__tile.calendar-selected {
+  background-color: #AD2F3B !important;
+  color: #F4D6D8 !important;
+}
+
+.react-calendar__navigation {
+  display: flex;
+  justify-content: space-between;
+  color: #AD2F3B;
+  align-items: center;
+  font-weight: 700;
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+  margin-top: 5px;
+}
+
+ */
+.react-calendar {
+  border: none;
+  font-family: 'Poppins', sans-serif;
+  width: 100%;
+  height: 100%;
+}
+
+.react-calendar__tile {
+  border-radius: 9999px;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.3rem;
+  aspect-ratio: 1;
+  text-align: center;
+  transition: background-color 0.2s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Responsive tile behavior */
+.react-calendar__month-view__days {
+  display: grid !important;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.25rem; /* reduces spacing between days */
+}
+
+/* Today styling */
+.react-calendar__tile.calendar-today {
+  background-color: #F4D6D8 !important;
+  color: black !important;
+}
+
+/* Selected day styling */
+.react-calendar__tile.calendar-selected {
+  background-color: #AD2F3B !important;
+  color: #F4D6D8 !important;
+}
+
+/* Month navigation */
+.react-calendar__navigation {
+  display: flex;
+  justify-content: space-between;
+  color: #AD2F3B;
+  align-items: center;
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+/* Weekdays header */
+.react-calendar__month-view__weekdays {
+  text-align: center;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+/* Smaller screens (like mobile) */
+@media (max-width: 480px) {
+  .react-calendar__tile {
+    font-size: 0.875rem; /* 14px */
+    padding: 0.2rem;
+  }
+
+  .react-calendar__navigation {
+    font-size: 0.85rem;
+  }
+
+  .react-calendar__month-view__weekdays {
+    font-size: 0.75rem;
+  }
+}

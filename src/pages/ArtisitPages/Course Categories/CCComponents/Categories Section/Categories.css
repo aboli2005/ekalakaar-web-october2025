@@ -1,0 +1,166 @@
+/* ===================== Header Section ===================== */
+#categories-header-section {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 5vw;
+}
+
+/* Header background with gradient overlay for depth */
+#categories-header-bg {
+    width: 100%;
+    height: 350px;
+    background-image: url(../CCImages/haeder-box-bg-img.png);
+    background-size: cover;
+    background-position: center;
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+    filter: brightness(0.6);
+}
+
+/* Gradient overlay for subtle depth effect */
+#categories-header-bg::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.6));
+    border-radius: 20px;
+}
+
+/* Header text with subtle fade-in animation */
+#couse-categories-text {
+    position: absolute;
+    top: 140px;
+    width: 100%;
+    text-align: center;
+    color:white;
+    font-family: var(--main-font-family);
+    font-size: 4.5vw;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 15px rgba(0,0,0,0.5);
+    animation: fadeInDown 1.2s ease forwards;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+#couse-categories-text:hover {
+    color: brown;
+    transform: scale(1.05);
+}
+
+/* Fade-in-down animation */
+@keyframes fadeInDown {
+    0% { opacity: 0; transform: translateY(-30px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+/* ===================== Category Scroll Section ===================== */
+#all-categories-scroll-section {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding: 15px 20px;
+    gap: 90px;
+    scroll-behavior: smooth;
+    margin-left: 10px;
+    height: 75px;
+    background-color: brown;
+    border: 30px;
+    border-radius: 45px;
+    margin-top: 5px;
+}
+
+/* Hide scrollbar in Webkit browsers */
+#all-categories-scroll-section::-webkit-scrollbar {
+    display: none;
+}
+
+/* Individual category cards */
+.every-category {
+    font-family: var(--main-font-family);
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;
+    background: brown;
+    color: black;
+    padding: 10px 20px;
+    border-radius: 45px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    text-align: center;
+    margin-left: 15px;
+}
+
+
+.every-category:hover {
+    transform: translateY(-5px) scaleX(1.05);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    background: white;
+}
+
+/* ===================== Page Category / Active Indicator ===================== */
+.page-category {
+    color: #fff;
+    padding: 8px 20px;
+    border-radius: 25px;
+    background-color: var(--brown-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.page-category:hover,
+.page-category.active {
+    background-color: #ff7f50;
+    transform: scale x(1.1);
+}
+
+/* ===================== Responsive ===================== */
+@media screen and (max-width: 850px) {
+    #categories-header-section {
+        gap: 40px;
+    }
+
+    #couse-categories-text {
+        font-size: 5vw;
+        top: 150px;
+    }
+
+    .every-category {
+        font-size: 16px;
+        padding: 8px 15px;
+    }
+}
+
+@media screen and (max-width: 475px) {
+    #all-categories-scroll-section {
+        width: 100%;
+        display: flex;
+        overflow-x: auto;
+        gap: 5vw;
+        justify-content: flex-start;
+    }
+
+    .every-category {
+        min-width: 70px;
+        text-align: center;
+        font-size: 14px;
+        padding: 6px 12px;
+    }
+
+    #categories-header-bg {
+        height: 250px;
+    }
+
+    #categories-header-section {
+        gap: 59px;
+    }
+
+    #couse-categories-text {
+        font-size: 28px;
+        top: 100px;
+    }
+}

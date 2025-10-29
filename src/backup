@@ -1,0 +1,211 @@
+<!-- import React, { useState } from 'react';
+import card1 from '../assets/cards/card1.jpeg';
+import card2 from '../assets/cards/card2.jpeg';
+import card3 from '../assets/cards/card3.jpeg';
+import { ArrowRight, ArrowLeft } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import wallpaper from '../assets/wallpaper.png';
+
+
+const EkalakaarHelp = () => {
+  const navigate = useNavigate();
+
+  const slides = [card1, card2, card3];
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % slides.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+  };
+
+  const handleNavigate = (path) => {
+    navigate(path);
+  };
+
+  const cardData = [
+    {
+      title: "Enable",
+      subtitle: "Social Marketing",
+      description:
+        "Art for enabling business/social outreach to last mile stakeholders",
+      hoverDescription:
+        "         Reach  your  last-mile  customers  and  beneficiaries  and  create  awareness.          ",
+      route: "/Enable",
+      background: card1,
+    },
+    {
+      title: "Engage",
+      subtitle: "Conferences and Events",
+      description:
+        "Art for meaningful engagement and impact with high level Stakeholders.",
+      hoverDescription:
+        "Make corporate and institutional events more meaningful and immersive.",
+      route: "/Engage",
+      background: card2,
+    },
+    {
+      title: "Elevate",
+      subtitle: "Cultural Entertainment",
+      description:
+        "Art for an elevated experience for your guests on festivals/ special occasions.",
+      hoverDescription: "Create unforgettable guest experiences for private events at elite clubs and hotels",
+      route: "/Elevate",
+      background: card3,
+    },
+  ];
+  
+
+  return (
+    <section className="relative bg-white pt-20 pb-10 font-[Poppins]">
+
+{/* Mandala Backgrounds */}
+<img
+  src={wallpaper}
+  alt="Mandala Top Right"
+  className="absolute top-[-210px] right-[-150px] w-[450px] opacity-[0.7] z-0"
+/>
+<img
+  src={wallpaper}
+  alt="Mandala Top Left"
+  className="absolute top-[-210px] left-[-150px] w-[450px] opacity-[0.7] z-0 "
+/>
+
+
+ <h2 className="text-center text-[#AD2F3B] font-bold text-[36px] mb-12 underline decoration-[#AD2F3B] decoration-2 underline-offset-[10px]">
+  VALUE TO YOU
+</h2>
+
+
+      <p className="text-center text-gray-700 text-[20px] max-w-[900px] mx-auto mb-16">
+        Communicate effectively with your audience through curated traditional performing arts that inspire, engage, and create impact.
+      </p>
+
+      <div className="w-full flex flex-col md:flex-row items-start justify-between px-[80px] gap-[10px]">
+        {/* Left Cards */}
+        <div className="w-[550px] flex flex-col gap-6">
+  {cardData.map((item, index) => (
+    <div
+      key={index}
+      className="relative border-2 border-[#AD2F3B] rounded-xl px-6 py-4 shadow-md hover:shadow-lg transition duration-300 ease-in-out flex flex-col items-center text-center overflow-hidden group h-[243px]"
+    >
+      {/* Gradient Background */}
+      <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#FAECEE] via-white to-[#F8E3E5] group-hover:opacity-0 transition-opacity duration-500"></div>
+
+      {/* Hover Background Image */}
+      <img
+        src={item.background}
+        alt={`${item.title} bg`}
+        className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-15 scale-0 group-hover:scale-125 transition-all duration-500 ease-out z-0"
+      />
+
+      {/* Card Content */}
+      <div className="z-10 flex flex-col items-center h-full justify-between">
+        {/* Top Content */}
+        <div className="flex flex-col items-center w-full">
+          {/* Title, Subtitle, Line and Description - hidden on hover */}
+          <h3 className="text-[#AD2F3B] font-bold text-[22px] group-hover:hidden">
+            {item.title}
+          </h3>
+
+          <p className="text-[20px] text-black-700 mt-2 mb-3 group-hover:hidden">
+            {item.subtitle}
+          </p>
+          <div className="w-[400px] h-[2px] bg-[#AD2F3B] mb-3 group-hover:hidden"></div>
+
+          <p className="text-[18px] text-gray-600 mb-3 group-hover:hidden">
+            {item.description}
+          </p>
+
+          {/* Hover Description in white box */}
+          <div className="hidden group-hover:flex items-center justify-center mt-1 mb-3">
+            <div className="w-[460px] h-[150px] bg-white border border-[#AD2F3B] rounded-lg flex items-center justify-center px-4 py-2 text-center">
+              <p className="text-[19px] text-black-700">{item.hoverDescription}</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Button */}
+        <button
+          onClick={() => handleNavigate(item.route)}
+          className="text-[#AD2F3B] text-sm border border-[#AD2F3B] px-6 py-2 rounded-full flex items-center gap-1 hover:bg-[#AD2F3B] hover:text-white transition"
+        >
+          View more <ArrowRight size={14} />
+        </button>
+      </div>
+    </div>
+  ))}
+</div>
+
+
+        {/* Right Image Slider */}
+        <div className="w-full md:w-[60%] flex items-center justify-center gap-4 mt-6">
+          {/* Left Arrow */}
+          <button className="p-1" onClick={prevSlide}>
+            <ArrowLeft />
+          </button>
+
+          {/* Image */}
+          <img
+            src={slides[currentSlide]}
+            alt="Slide"
+            className="rounded-xl w-full max-w-[800px] h-[700px] aspect-[16/10] object-cover shadow-md mt-2"
+          />
+
+          {/* Right Arrow */}
+          <button className="p-1" onClick={nextSlide}>
+            <ArrowRight />
+          </button>
+        </div>
+      </div>
+
+      <div className="mt-[125px] flex justify-center mb-[20px]">
+      <button
+  onClick={() => navigate("/book-performance")}
+  className="bg-[#AD2F3B] text-white w-[300px] h-[60px] text-[20px] rounded-full transition-shadow duration-300 hover:shadow-[0_6px_11px_rgba(0,0,0,0.25)]"
+>
+  Book Performance
+</button>
+
+</div>
+
+    </section>
+  );
+};
+
+export default EkalakaarHelp; -->
+
+
+
+
+          <ul className="absolute hidden group-hover:block bg-white shadow-md mt-2 text-black py-0 rounded-md w-[160px] left-1/2 transform -translate-x-1/2 z-50">
+                        <li className="px-3 py-2 hover:[background-color:#FBF1F3] transition-colors duration-200 break-words">
+              <Link
+                to="/news"
+                className="block text-[#AD2F3B] hover:text-[#8B2730] pl-3 no-underline text-md"
+              >
+                News
+              </Link>
+            </li>
+                        <li className="px-3 py-2 hover:[background-color:#FBF1F3] transition-colors duration-200 break-words">
+              <Link
+                to="/blog"
+                className="block text-[#AD2F3B] hover:text-[#8B2730] no-underline pl-3 text-md"
+              >
+                Blog
+              </Link>
+            </li>
+            
+            
+            <li className="px-3 py-2 hover:[background-color:#FBF1F3] transition-colors duration-200 break-words">
+              <Link
+                to="/upcoming-event"
+                className="block text-[#AD2F3B] hover:text-[#8B2730] pl-3 no-underline text-md leading-snug"
+              >
+                Gallery
+              </Link>
+            </li>
+           
+          </ul>

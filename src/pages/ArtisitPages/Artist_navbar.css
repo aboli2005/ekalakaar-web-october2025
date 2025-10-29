@@ -1,0 +1,69 @@
+/* popup container is styled inline for positioning, but class-based styles below control link look */
+
+.account-popup {
+  display: flex;
+  flex-direction: column;
+  min-height: 48px;
+  font-family: "Poppins", sans-serif;
+}
+
+/* common style for both link and button inside popup */
+.popup-link {
+  height: 48px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 16px;
+  color: #333;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background 0.16s ease, color 0.16s ease;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* show a subtle dividing line between items */
+.account-popup .popup-link + .popup-link {
+  border-top: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.popup-icon {
+  width: 20px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+}
+
+/* hover */
+.popup-link:hover {
+  background: rgba(173, 47, 59, 0.06);
+  color: #ad2f3b;
+}
+
+/* logout button styled same as link */
+.logout-btn {
+  text-align: left;
+  padding-left: 16px;
+}
+
+/* small fade-in */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* navbar brand / logo adjustments (optional) */
+.navbar-brand img {
+  display: block;
+  object-fit: contain;
+}

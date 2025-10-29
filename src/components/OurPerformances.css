@@ -1,0 +1,27 @@
+
+.scroll-wrapper {
+  width: 1275px; /* 3 cards x 400px + 2 gaps of 25px (50px total) */
+  overflow: hidden;
+  position: relative;
+}
+
+.scroll-content {
+  display: flex;
+  gap: 25px; /* Updated gap between cards */
+  animation: scroll-loop 12s linear infinite;
+}
+
+.scroll-content > div {
+  flex-shrink: 0;
+  width: 400px;
+}
+
+/* Infinite scroll keyframes */
+@keyframes scroll-loop {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-1275px); /* Updated to match total scroll width */
+  }
+}

@@ -1,0 +1,249 @@
+/* artist_limited_profile.css
+   LinkedIn-style redesign with red accent + cover behind avatar
+   Works with your existing markup (no JSX changes required).
+*/
+
+/* Theme vars */
+:root{
+    --bg: #f3f5f7;
+    --card: #ffffff;
+    --muted: #6b7280;
+    --accent: #b93a3f;         /* main red accent */
+    --accent-2: #efefef;       /* light red tint if needed */
+    --border: rgba(16,24,40,0.06);
+    --shadow-lg: 0 18px 50px rgba(16,24,40,0.08);
+    --shadow-sm: 0 6px 18px rgba(16,24,40,0.06);
+    --radius: 12px;
+    --container-max: 1120px;
+    --g:20px;
+    --font-sans: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  }
+  
+  /* Base reset */
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    background:var(--bg);
+    font-family:var(--font-sans);
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    color:#0f172a;
+    line-height:1.45;
+  }
+  
+  /* MAIN card container */
+  .BasicProfile_Infoform{
+    width: 100%;
+    max-width: var(--container-max);
+    margin: 26px auto;
+    background: var(--card);
+    border-radius: 14px;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border);
+    overflow: visible;
+    position: relative; /* needed for cover pseudo */
+    padding: 0 28px 36px; /* top padding is handled by cover */
+  }
+  
+  /* Decorative cover behind header (pseudo element so no JSX changes) */
+  .BasicProfile_Infoform::before{
+    content: "";
+    display:block;
+    width:100%;
+    height:220px;
+    border-top-left-radius: 14px;
+    border-top-right-radius: 14px;
+    background-image: linear-gradient(135deg, rgba(185,58,63,0.12), rgba(185,58,63,0.06)), url("https://images.unsplash.com/photo-1503264116251-35a269479413?q=80&w=1600&auto=format&fit=crop&ixlib=rb-4.0.3&s=a7b5b9804b37b8a7a99b6a9a5d3db8f4");
+    background-size: cover;
+    background-position: center;
+    position: relative;
+  }
+  
+  /* Header area — sits visually on the cover */
+  .BasicProfile_avatar{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    gap:12px;
+    margin-top: -62px; /* pull avatar up to overlap cover */
+    padding-top: 22px;
+  }
+  
+  /* larger avatar with clean ring and shadow */
+  .profileImg{
+    width:140px;
+    height:140px;
+    border-radius:9999px;
+    overflow:hidden;
+    border:8px solid #fff;
+    box-shadow: 0 16px 40px rgba(16,24,40,0.16);
+    background: #fff;
+  }
+  .profileImg img{ width:100%; height:100%; object-fit:cover; display:block; }
+  
+  /* ID and verified badge row */
+  .BasicProfile_avatar > div.name-row {
+    display:flex;
+    align-items:center;
+    gap:12px;
+  }
+  .BasicProfile_avatar h2{
+    margin:8px 0 0;
+    font-size:26px;
+    font-weight:700;
+    color:#0f172a;
+  }
+  .verified-dot{
+    width:34px;
+    height:34px;
+    border-radius:50%;
+    background:#67d0ff;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow: 0 6px 18px rgba(97,198,255,0.18);
+  }
+  
+  /* upload button directly under avatar */
+  .BasicProfile_editavatar{
+    background:var(--accent);
+    color:#fff;
+    border:none;
+    padding:11px 20px;
+    border-radius:10px;
+    font-weight:700;
+    box-shadow: 0 12px 30px rgba(185,58,63,0.12);
+    cursor:pointer;
+    margin-top:6px;
+  }
+  
+  /* main two-column layout for content (form & sidebar style) */
+  .form-and-sidebar {
+    display:grid;
+    grid-template-columns: 320px 1fr; /* left narrow column for contact/quick info */
+    gap:28px;
+    margin-top: 18px;
+  }
+  
+  /* NOTE: your form currently is not wrapped in .form-and-sidebar. If you want the left column look,
+     you can add a wrapper div around your existing form and an extra left panel. But because we must not change JSX,
+     we simulate a more boxed look by limiting form width and centering fields. */
+  
+  /* Keep the existing form grid but make it visually aligned */
+  form{
+    display:grid;
+    gap:26px;
+    grid-column: 1 / -1;
+  }
+  
+  /* Two-column fields inside form */
+  .BasicProfile_PersonalINfo{
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap:28px;
+    align-items:start;
+  }
+  
+  /* Inputs styling (modern with subtle radius) */
+  .input, input[type="text"], input[type="number"], select, textarea {
+    height:48px;
+    padding:12px 14px;
+    border-radius:10px;
+    border:1px solid var(--border);
+    font-size:15px;
+    background:#fff;
+    transition: all .12s ease;
+  }
+  .input:focus, input:focus, select:focus, textarea:focus{
+    outline:none;
+    border-color:var(--accent);
+    box-shadow:0 8px 26px rgba(185,58,63,0.08);
+    transform: translateY(-1px);
+  }
+  
+  /* section headers / labels */
+  .BasicProfile_inputfield label{
+    font-weight:700;
+    font-size:14px;
+    color:#0f172a;
+  }
+  
+  /* Email and full width elements */
+  .BasicProfile_inputfield.full { grid-column: 1 / -1; }
+  
+  /* Form card inner spacing */
+  .BasicProfile_Infoform > form { padding: 18px 0 0; }
+  
+  /* Thumbnails grid */
+  .thumbnail-cc{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+    margin-top:10px;
+  }
+  .thumbnail-cc > div{
+    width:120px;
+    height:120px;
+    border-radius:10px;
+    overflow:hidden;
+    border:1px solid var(--border);
+    background:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow: 0 8px 20px rgba(16,24,40,0.04);
+  }
+  .thumbnail-cc-img{ width:100%; height:100%; object-fit:cover; display:block; }
+  
+  /* Submit button */
+  .updateBtn{
+    margin-top:8px;
+    padding:12px 20px;
+    background:var(--accent);
+    color:#fff;
+    border-radius:10px;
+    border:none;
+    font-weight:700;
+    cursor:pointer;
+    box-shadow:0 14px 40px rgba(185,58,63,0.12);
+  }
+  
+  /* Make the form card content appear narrower and centered like LinkedIn */
+  .BasicProfile_Infoform .form-inner {
+    max-width:900px;
+    margin: 12px auto 0;
+    padding: 0 10px;
+  }
+  
+  /* Responsiveness */
+  @media (max-width: 980px) {
+    .BasicProfile_Infoform::before { height:180px; }
+    .profileImg{ width:118px; height:118px; border-width:6px; }
+    .BasicProfile_avatar h2{ font-size:22px; }
+    .BasicProfile_Infoform{ padding:0 18px 28px; }
+    .BasicProfile_PersonalINfo { grid-template-columns: 1fr; }
+    .thumbnail-cc > div { width:100px; height:100px; }
+    .BasicProfile_Infoform .form-inner { max-width:100%; margin:0; }
+  }
+  
+  /* Mobile */
+  @media (max-width: 520px) {
+    .BasicProfile_Infoform::before { height:140px; }
+    .profileImg{ width:96px; height:96px; }
+    .BasicProfile_avatar { margin-top: -48px; padding-top: 8px; }
+    .BasicProfile_avatar h2 { font-size:18px; }
+    .BasicProfile_editavatar{ padding:10px 14px; font-size:14px; }
+    .thumbnail-cc > div { width:88px; height:88px; }
+    .updateBtn{ width:100%; }
+  }
+  
+  /* small helpers */
+  .red { color: #ef4444; font-weight:700; }
+  .possso { fill: var(--muted); }
+  
+  /* If you want the cover to be randomized next reload, you can change the pseudo before image url in JS
+     or use a list of URLs and set CSS variable --cover-url dynamically. Example JS (optional):
+     document.documentElement.style.setProperty('--cover-url', 'https://...'); then use var(--cover-url) in ::before.
+  */
+  

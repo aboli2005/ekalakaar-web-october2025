@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Base path for Flutter app -->
+  <base href="/">
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+  <!-- SEO & Description -->
+  <meta name="description" content="A powerful project management tool built with Flutter and Firebase.">
+  <meta name="keywords" content="project management, Flutter, Firebase, dashboard, analytics">
+  <meta name="author" content="ekalakaar.com">
+
+  <!-- Mobile App Meta Tags -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Project Management Tool">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png"/>
+
+  <!-- Web App Manifest -->
+  <link rel="manifest" href="manifest.json">
+
+  <title>Project Management Tool</title>
+
+  <!-- Preload Flutter script for performance -->
+  <link rel="preload" href="flutter_bootstrap.js" as="script">
+</head>
+<body>
+  <script src="flutter_bootstrap.js" async></script>
+  <script type="module" src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js"></script>
+  <script type="module" src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js"></script>
+  
+  <!-- Google Sign-In Configuration -->
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyCCYRky217idMLNMw1rsdFpv1EKfpdpGY0",
+      authDomain: "project-management-tool-6eafe.firebaseapp.com",
+      projectId: "project-management-tool-6eafe",
+      storageBucket: "project-management-tool-6eafe.appspot.com",
+      messagingSenderId: "593289515017",
+      appId: "1:593289515017:web:1dac2cf1abd411713968d8",
+      measurementId: "G-H501HHVQBF"
+    };
+    
+    // Initialize Firebase
+    const app = firebase.initializeApp(firebaseConfig);
+    
+    // Initialize Google Sign-In
+    const provider = new firebase.auth.GoogleAuthProvider();
+    provider.setCustomParameters({
+      client_id: '593289515017-oil5dc50jesdrtbq22tlmhf7kptsl6bd.apps.googleusercontent.com'
+    });
+  </script>
+
+</body>
+
+</html>

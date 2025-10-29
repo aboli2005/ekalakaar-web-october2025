@@ -1,0 +1,671 @@
+/* ========================================
+   PORTFOLIO STYLES - SCREEN & PRINT READY
+   ======================================== */
+
+/* Main Container */
+.portfolio-main-wrapper {
+  background: #f7f7f7;
+  min-height: 100vh;
+  padding: 20px;
+  width: 100%;
+}
+
+/* Download Button */
+.portfolio-actions {
+  max-width: 1000px;
+  margin: 0 auto 20px;
+  text-align: right;
+}
+
+.download-portfolio-btn {
+  background: linear-gradient(135deg, #ad2f3b 0%, #d94350 100%);
+  color: white;
+  border: none;
+  padding: 14px 32px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 4px 20px rgba(173, 47, 59, 0.3);
+  transition: all 0.3s ease;
+  font-family: 'Poppins', sans-serif;
+}
+
+.download-portfolio-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(173, 47, 59, 0.4);
+  background: linear-gradient(135deg, #d94350 0%, #ad2f3b 100%);
+}
+
+/* Portfolio Document Container */
+.portfolio-document {
+  max-width: 1000px;
+  margin: 0 auto;
+  background: white;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* ========== HEADER SECTION ========== */
+.cv-header {
+  background: linear-gradient(135deg, #ad2f3b 0%, #d94350 100%);
+  color: white;
+  padding: 40px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 30px;
+  align-items: center;
+}
+
+.cv-photo-wrapper {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 5px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.cv-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cv-header-center {
+  flex: 1;
+}
+
+.cv-name {
+  font-size: 36px;
+  font-weight: 700;
+  margin: 0 0 5px 0;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+}
+
+.cv-title {
+  font-size: 18px;
+  margin: 0 0 20px 0;
+  opacity: 0.95;
+  font-weight: 400;
+}
+
+.cv-contact-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.contact-icon {
+  font-size: 16px;
+  opacity: 0.9;
+}
+
+.cv-social-row {
+  display: flex;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.social-icon {
+  color: white;
+  font-size: 22px;
+  transition: all 0.3s ease;
+  opacity: 0.9;
+}
+
+.social-icon:hover {
+  opacity: 1;
+  transform: scale(1.15);
+}
+
+.cv-header-right {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.stats-card {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 20px 30px;
+  border-radius: 12px;
+  text-align: center;
+  backdrop-filter: blur(10px);
+  min-width: 120px;
+}
+
+.stat-number {
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.stat-label {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.9;
+}
+
+/* ========== BODY CONTENT ========== */
+.cv-body {
+  padding: 40px;
+}
+
+.cv-section {
+  margin-bottom: 35px;
+  page-break-inside: avoid;
+}
+
+.cv-section-title {
+  font-size: 20px;
+  color: #ad2f3b;
+  margin: 0 0 20px 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding-bottom: 12px;
+  border-bottom: 3px solid #ad2f3b;
+}
+
+.title-icon {
+  font-size: 22px;
+}
+
+.cv-section-content {
+  color: #333;
+  line-height: 1.8;
+}
+
+/* Summary Grid */
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.summary-item {
+  padding: 15px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  border-left: 4px solid #ad2f3b;
+  font-size: 15px;
+}
+
+.summary-full {
+  grid-column: 1 / -1;
+}
+
+/* Info Table */
+.info-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 15px;
+}
+
+.info-table tr {
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.info-table tr:last-child {
+  border-bottom: none;
+}
+
+.table-label {
+  padding: 12px 15px;
+  font-weight: 600;
+  color: #555;
+  width: 200px;
+  background: #f9f9f9;
+}
+
+.table-value {
+  padding: 12px 15px;
+  color: #333;
+}
+
+.about-section {
+  margin-top: 20px;
+  padding: 20px;
+  background: #fff9f0;
+  border-radius: 10px;
+  border-left: 4px solid #ffb800;
+}
+
+.about-section p {
+  margin: 10px 0 0 0;
+  font-style: italic;
+  color: #555;
+}
+
+/* Performance Cards */
+.performance-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.perf-card {
+  background: #f8f8f8;
+  padding: 25px;
+  border-radius: 12px;
+  text-align: center;
+  border: 2px solid #e0e0e0;
+  transition: all 0.3s ease;
+}
+
+.perf-card:hover {
+  border-color: #ad2f3b;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(173, 47, 59, 0.15);
+}
+
+.perf-label {
+  font-size: 13px;
+  color: #ad2f3b;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 10px;
+  letter-spacing: 0.5px;
+}
+
+.perf-value {
+  font-size: 20px;
+  font-weight: 700;
+  color: #333;
+}
+
+.highlights-box {
+  background: #fff9f0;
+  padding: 20px;
+  border-radius: 10px;
+  border-left: 4px solid #ffb800;
+}
+
+.highlights-box p {
+  margin: 10px 0 0 0;
+  color: #555;
+}
+
+/* Awards Layout */
+.awards-layout {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+
+.award-circle {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ad2f3b 0%, #d94350 100%);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 25px rgba(173, 47, 59, 0.3);
+  flex-shrink: 0;
+}
+
+.award-number {
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.award-text {
+  font-size: 12px;
+  text-transform: uppercase;
+  margin-top: 8px;
+  opacity: 0.95;
+}
+
+.award-info {
+  flex: 1;
+}
+
+.award-desc {
+  margin-top: 10px;
+  font-style: italic;
+  color: #555;
+  background: #f9f9f9;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+/* Gallery */
+.gallery-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.gallery-image {
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.gallery-image:hover {
+  transform: scale(1.05);
+}
+
+.gallery-image img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+}
+
+.video-container {
+  margin-top: 20px;
+}
+
+.video-container video {
+  width: 100%;
+  max-width: 600px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Calendar */
+.portfolio-calendar {
+  width: 100%;
+  max-width: 500px;
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+/* Footer */
+.cv-footer {
+  padding: 20px 40px;
+  text-align: center;
+  background: #f9f9f9;
+  border-top: 2px solid #e0e0e0;
+  font-size: 13px;
+  color: #666;
+}
+
+/* ========================================
+   PRINT STYLES - PROPER PDF LAYOUT
+   ======================================== */
+
+.screen-only {
+  display: block;
+}
+
+.print-only {
+  display: none;
+}
+
+@media print {
+  /* Hide screen-only elements */
+  .screen-only {
+    display: none !important;
+  }
+
+  .print-only {
+    display: block !important;
+  }
+
+  /* Reset page setup */
+  @page {
+    size: A4;
+    margin: 15mm;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Fix main layout for print */
+  .dashboard-layout {
+    display: block !important;
+  }
+
+  .portfolio-main-wrapper {
+    padding: 0 !important;
+    background: white !important;
+    width: 100% !important;
+    max-width: none !important;
+  }
+
+  .portfolio-document {
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    max-width: none !important;
+    margin: 0 !important;
+  }
+
+  /* Header adjustments */
+  .cv-header {
+    background: #ad2f3b !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    color: white !important;
+    padding: 25px !important;
+    page-break-after: avoid;
+    grid-template-columns: auto 1fr auto !important;
+  }
+
+  .cv-photo-wrapper {
+    width: 100px !important;
+    height: 100px !important;
+  }
+
+  .cv-name {
+    font-size: 28px !important;
+  }
+
+  .cv-title {
+    font-size: 16px !important;
+  }
+
+  .stats-card {
+    background: rgba(255, 255, 255, 0.2) !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Body adjustments */
+  .cv-body {
+    padding: 25px !important;
+  }
+
+  .cv-section {
+    page-break-inside: avoid;
+    margin-bottom: 25px !important;
+  }
+
+  .cv-section-title {
+    font-size: 18px !important;
+    color: #ad2f3b !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    page-break-after: avoid;
+  }
+
+  /* Preserve colors in print */
+  .perf-card,
+  .summary-item,
+  .about-section,
+  .highlights-box,
+  .award-desc {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .award-circle {
+    background: #ad2f3b !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    color: white !important;
+  }
+
+  /* Avoid breaking inside cards */
+  .perf-card,
+  .summary-item,
+  .awards-layout,
+  .about-section {
+    page-break-inside: avoid;
+  }
+
+  /* Fix table layout */
+  .info-table {
+    page-break-inside: avoid;
+  }
+
+  /* Ensure proper text rendering */
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
+
+/* ========================================
+   RESPONSIVE DESIGN - MOBILE & TABLET
+   ======================================== */
+
+@media screen and (max-width: 1200px) {
+  .cv-header {
+    grid-template-columns: auto 1fr;
+    gap: 20px;
+  }
+
+  .cv-header-right {
+    grid-column: 1 / -1;
+    flex-direction: row;
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .portfolio-main-wrapper {
+    padding: 10px;
+  }
+
+  .portfolio-document {
+    border-radius: 8px;
+  }
+
+  .cv-header {
+    padding: 25px 20px;
+    grid-template-columns: 1fr;
+    text-align: center;
+    justify-items: center;
+  }
+
+  .cv-photo-wrapper {
+    width: 100px;
+    height: 100px;
+  }
+
+  .cv-name {
+    font-size: 28px;
+  }
+
+  .cv-title {
+    font-size: 16px;
+  }
+
+  .cv-contact-grid {
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .cv-social-row {
+    justify-content: center;
+  }
+
+  .cv-body {
+    padding: 25px 20px;
+  }
+
+  .cv-section-title {
+    font-size: 18px;
+  }
+
+  .summary-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .table-label {
+    width: 120px;
+    font-size: 13px;
+  }
+
+  .table-value {
+    font-size: 14px;
+  }
+
+  .performance-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .awards-layout {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .gallery-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .cv-name {
+    font-size: 24px;
+  }
+
+  .cv-title {
+    font-size: 14px;
+  }
+
+  .download-portfolio-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .portfolio-actions {
+    text-align: center;
+  }
+
+  .cv-section-title {
+    font-size: 16px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .gallery-container {
+    grid-template-columns: 1fr;
+  }
+
+  .stats-card {
+    padding: 15px 20px;
+  }
+}

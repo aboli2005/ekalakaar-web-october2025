@@ -1,0 +1,21 @@
+Performance Report
+
+Date: ${date}
+Location: ${location}
+Venue: ${venue}
+Date Range: ${dateRange}
+
+Feedback Analysis:
+${feedback_analysis}
+
+Total Attendees: ${total_attendees}
+
+Positive Feedback:
+${positive_feedback}
+
+Areas for Improvement:
+${areas_improvement}
+
+Media Summary:
+Total Photos: ${total_photos}
+Total Videos: ${total_videos}

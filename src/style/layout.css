@@ -1,0 +1,48 @@
+html {
+  font-size: 16px;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background-color: #fff;
+}
+
+.main-container {
+  width: 100%;
+  
+  box-sizing: border-box;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.scale-wrapper {
+  transform: scale(0.75);
+  transform-origin: top left;
+  width: 133.33vw;  
+  height: 133.33vh; 
+  top: 0;
+  left: 0;
+  scroll-behavior: hide;
+
+}
+html {
+  font-size: 16px;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background-color: #fff;
+  font-family: sans-serif;
+}
+
+

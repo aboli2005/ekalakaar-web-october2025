@@ -1,0 +1,75 @@
+
+.heading-main {
+  color: #AD2F3B;
+  font-weight: 700;
+}
+
+.subtext {
+  color: #1F2937; 
+}
+
+
+.btn-main {
+  background-color: #AD2F3B;
+  color: white;
+  padding: 0.5rem 1.5rem;
+  border-radius: 9999px;
+  font-weight: 400;
+  transition: box-shadow 0.3s ease;
+  font-size: 18px; /* Default for laptop/desktop */
+    text-decoration: none; /* ✅ Removes underline */
+}
+
+.btn-main:hover {
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.25);
+}
+
+/* Tablet View (up to 768px) */
+@media (max-width: 768px) {
+  .btn-main {
+    font-size: 17px;
+    padding: 0.4rem 0.8rem;
+  }
+}
+
+/* Mobile View (up to 480px) */
+@media (max-width: 480px) {
+  .btn-main {
+    font-size: 14px;
+    padding: 0.3rem 0.8rem;
+  }
+}
+
+/* ---------- Carousel Styles ---------- */
+
+.carousel-track {
+  display: flex;
+  gap: 50px;
+  width: max-content;
+  animation: scroll 40000ms linear infinite;
+  animation-delay: 1ms;
+  align-items: center;
+  padding-bottom: 30px;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.carousel-controls {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(173, 47, 59, 0.8);
+  color: white;
+  padding: 0.5rem;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10;
+}
+

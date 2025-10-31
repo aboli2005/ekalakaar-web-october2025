@@ -134,12 +134,14 @@ export function Artist_Opportunities() {
 
     try {
       event.preventDefault();
-      const response = await makeAuthenticatedPOSTRequest(
-        artistOpportunityPoints.APPLY_OPPOR_API +
-          `/${OpportunityapplynowPopup?.id}`,
-        { applyAns },
-        accessToken
-      );
+
+     const response = await makeAuthenticatedPOSTRequest(
+  artistOpportunityPoints.APPLY_OPPOR_API +
+    `/${OpportunityapplynowPopup?.id}`,
+  applyAns,
+  accessToken
+);
+
 
       if (response.status === "success") {
         toast.success("successfully applied" ,{

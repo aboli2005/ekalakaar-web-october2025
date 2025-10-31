@@ -321,11 +321,15 @@ const OppApplications = () => {
             </div>
 
             {/* Application Section */}
-            <div className="popup-section">
-              <h3>Application Info</h3>
-              <p><b>Status:</b> {selectedApplication.status}</p>
-              <p><b>Applied On:</b> {splitDate(selectedApplication.appliedOn)}</p>
-            </div>
+            {/* Application Section */}
+<div className="popup-section">
+  <h3>Application Info</h3>
+  <p><b>Status:</b> {selectedApplication.status}</p>
+  <p><b>Applied On:</b> {splitDate(selectedApplication.appliedOn)}</p>
+  <p><b>Quoted Price:</b> ₹{selectedApplication.quotedPrice || "N/A"}</p>
+  <p><b>Answer:</b> {selectedApplication.answer || "N/A"}</p>
+</div>
+
 
             <button
               onClick={() => exportToPDF(selectedApplication)}

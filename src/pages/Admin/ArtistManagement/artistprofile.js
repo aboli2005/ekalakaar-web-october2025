@@ -147,7 +147,7 @@ const ArtistProfile = () => {
             aria-label="Artist cover"
             style={{
               backgroundImage:
-                "linear-gradient(90deg, rgba(196,40,45,0.9), rgba(210,86,88,0.9)), url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1800&q=60')",
+                "linear-gradient(90deg, rgba(196,40,45,0.9), rgba(210,86,88,0.9)), url('')",
             }}
           />
 

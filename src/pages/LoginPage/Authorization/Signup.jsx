@@ -463,7 +463,10 @@ function Signup() {
         };
         Otp_Send(reqBody);
         toast.success("Successfully registered", { position: "top-center" });
-        navigate(`/verifyCode/${formData.email}`);
+        navigate(`/verifyCode/${formData.email}`, {
+  state: { mobile: formData.phoneNumber.number },
+});
+
       }
     } catch (error) {
       console.log(error);

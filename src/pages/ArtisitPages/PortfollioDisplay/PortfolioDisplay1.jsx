@@ -416,12 +416,12 @@ const getFullImageUrl = (imageValue) => {
                         {artdata?.performanceInfo?.peakPerf || "N/A"}
                       </div>
                     </div>
-                    <div className="perf-card">
+                    {/* <div className="perf-card">
                       <div className="perf-label">Performance Type</div>
                       <div className="perf-value">
                         {artdata?.performanceInfo?.perfType || "N/A"}
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                   {artdata?.performanceInfo?.highlights && (
                     <div className="highlights-box">
@@ -448,7 +448,7 @@ const getFullImageUrl = (imageValue) => {
                     </div>
                     <div className="award-info">
                       <p>
-                        <strong>Level:</strong> {artdata?.awardsInfo?.level || "N/A"}
+                        <strong>Highest Level:</strong> {artdata?.awardsInfo?.level || "N/A"}
                       </p>
                       {artdata?.awardsInfo?.highlights && (
                         <p className="award-desc">
@@ -468,13 +468,13 @@ const getFullImageUrl = (imageValue) => {
                 </h2>
 
                 <div className="cv-section-content">
-                  <input
+                  {/* <input
                     type="file"
                     accept="image/*"
                     multiple
                     onChange={handleFileSelect}
                     style={{ marginBottom: "10px" }}
-                  />
+                  /> */}
                   {uploading && <p style={{color: 'orange'}}>Uploading images...</p>}
 
                   <div className="gallery-container">

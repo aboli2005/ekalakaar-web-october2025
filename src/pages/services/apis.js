@@ -134,4 +134,8 @@ export const contactUsPoints = {
   POST_QUERY_API: BASE_URL + `/quries/post-query`,
 };
 
+export const quotePoints = {
+  QUOTE_API: BASE_URL + `/quote`,
+};
+
 //try

@@ -16,6 +16,8 @@ import natureOfArt from "./assets/natureOfArt.svg"
 import category from "./assets/category.svg"
 import language from "./assets/language.svg"
 import { setAccessToken, setRefreshToken } from "../../reducer/slices/authSlice";
+import { quotePoints } from "../../services/apis";
+
 
 // Sidebar icons import
 import {
@@ -92,6 +94,8 @@ export function Artist_Opportunities() {
   const navigate = useNavigate();
   const location = useLocation(); // For sidebar active state
 
+
+
   // Logout function
   const handleLogout = () => {
     dispatch(setAccessToken(null));
@@ -160,6 +164,8 @@ export function Artist_Opportunities() {
 
     toast.dismiss(toastId);
   };
+
+  
 
   const fetchOpportunity = async () => {
     try {

@@ -15,29 +15,80 @@ function VerificationCode() {
   const navigate = useNavigate();
 
   // ✅ Verify OTP
-  const submitHandler = async (event) => {
-    event.preventDefault();
+  // inside VerificationCode component (replace existing submitHandler)
+const submitHandler = async (event) => {
+  event.preventDefault();
+
+  // quick validation
+  const trimmedOtp = (otp || "").toString().trim();
+  if (!mobile) {
+    toast.error("Mobile number missing. Please go back and re-enter.");
+    console.error("Missing mobile in location.state:", location.state);
+    return;
+  }
+  if (trimmedOtp.length < 4) {
+    toast.error("Please enter the complete OTP.");
+    return;
+  }
+
+  try {
+    console.log("Sending VERIFY_OTP request -> payload:", { mobile, otp: trimmedOtp });
+
+    const res = await fetch(endpoints.VERIFY_OTP, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ mobile, otp: trimmedOtp }), // change "otp" key if backend expects a different field
+    });
+
+    // raw text and parsed json (for debug if JSON parse fails)
+    const text = await res.text();
+    let data;
     try {
-      const res = await fetch(endpoints.VERIFY_OTP, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ otp, mobile }),
-      });
-
-      const data = await res.json();
-      console.log("VERIFY_OTP response:", data);
-
-      if (res.ok && (data.success === true || data.status === true)) {
-        toast.success(data?.message || "OTP Verified Successfully");
-        navigate("/login");
-      } else {
-        toast.error(data?.message || "Wrong OTP");
-      }
-    } catch (error) {
-      console.error(error);
-      toast.error("Something went wrong");
+      data = JSON.parse(text);
+    } catch (err) {
+      // fallback - sometimes API returns JSON-like but not strict JSON
+      console.warn("Response was not valid JSON, raw text:", text);
+      data = { raw: text };
     }
-  };
+
+    console.log("VERIFY_OTP raw response status:", res.status, "ok:", res.ok);
+    console.log("VERIFY_OTP parsed response:", data);
+
+    // Flexible success detection:
+    const isSuccess =
+      res.ok ||
+      data?.status === "success" ||
+      data?.statusCode === 200 ||
+      data?.success === true ||
+      Boolean(data?.accessToken) ||
+      Boolean(data?.data?.accessToken);
+
+    if (isSuccess) {
+      toast.success(data?.message || "OTP Verified Successfully");
+
+      // store tokens if present (check both places)
+      const accessToken = data?.accessToken || data?.data?.accessToken;
+      const refreshToken = data?.refreshToken || data?.data?.refreshToken;
+      if (accessToken) {
+        localStorage.setItem("accessToken", accessToken);
+      }
+      if (refreshToken) {
+        localStorage.setItem("refreshToken", refreshToken);
+      }
+
+      // navigate to dashboard or login as needed
+      navigate("/login");
+    } else {
+      // server might return message explaining why OTP is wrong
+      const errMsg = data?.message || data?.error || "Wrong OTP";
+      toast.error(errMsg);
+      console.error("OTP verification failed:", data);
+    }
+  } catch (error) {
+    console.error("VERIFY_OTP error:", error);
+    toast.error("Something went wrong while verifying OTP.");
+  }
+};
 
   // ✅ Send / Resend OTP (same API call)
   const sendOtpHandler = async () => {

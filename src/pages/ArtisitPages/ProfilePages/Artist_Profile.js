@@ -5250,7 +5250,7 @@ src={
 </div>
 
                   <div className="BasicProfile_inputfield iiooo">
-                    <label htmlFor="perfVideo">Performance Video(Max. 1)</label>
+                    <label htmlFor="perfVideo">Performance Video(1)</label>
                     <input
                       value={perfVideo[0]}
                       onChange={(e) =>
@@ -5265,7 +5265,7 @@ src={
                   </div>
 
                   <div className="BasicProfile_inputfield iiooo">
-                    <label htmlFor="perfVideo">Performance Video(Max. 2)</label>
+                    <label htmlFor="perfVideo">Performance Video(2)</label>
                     <input
                       value={perfVideo[1]}
                       onChange={(e) =>
@@ -5280,7 +5280,7 @@ src={
                   </div>
 
                   <div className="BasicProfile_inputfield iiooo">
-                    <label htmlFor="perfVideo">Performance Video(Max. 3)</label>
+                    <label htmlFor="perfVideo">Performance Video(3)</label>
                     <input
                       value={perfVideo[2]}
                       onChange={(e) =>
@@ -5667,38 +5667,45 @@ src={
                              {key === "documentUrl" && (
   <div className="document-upload-wrapper">
     <input
-      type="file"
-      accept="image/*,application/pdf"
-      onChange={(e) => {
-        e.preventDefault();
-        const file = e.target.files[0];
-        if (!file) return;
+  type="file"
+  accept="image/*,application/pdf"
+  onChange={(e) => {
+    e.preventDefault();
+    const file = e.target.files[0];
+    if (!file) return;
 
-        // ✅ 1️⃣ — Size check before reading
-        const maxSizeInMB = 1; // change to 2 or 5 if you want bigger files
-        const maxSizeInBytes = maxSizeInMB * 1024 * 1024;
+    // ✅ 1️⃣ Size validation (1 MB = 1 * 1024 * 1024 bytes)
+    const maxSizeMB = 1;
+    const maxSizeBytes = maxSizeMB * 1024 * 1024;
 
-        if (file.size > maxSizeInBytes) {
-          alert(`File too large! Please upload under ${maxSizeInMB} MB.`);
-          e.target.value = null; // reset input
-          return;
-        }
+    console.log(`Selected file: ${file.name} (${(file.size / 1024).toFixed(2)} KB)`);
 
-        // ✅ 2️⃣ — Read and store as Base64
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => {
-          const imageData = reader.result;
-          const newData = [...awardsTable];
-          newData[rowIndex][key] = imageData;
-          setAwardTable(newData);
-        };
-        reader.onerror = (error) => {
-          console.error("Error reading file:", error);
-          alert("Error reading file. Please try again.");
-        };
-      }}
-    />
+    if (file.size > maxSizeBytes) {
+      alert(`File too large! Must be under ${maxSizeMB} MB.`);
+      e.target.value = null;
+      return;
+    }
+
+    // ✅ 2️⃣ FileReader to convert to Base64
+    const reader = new FileReader();
+    reader.onload = () => {
+      const base64Data = reader.result;
+
+      const updated = [...awardsTable];
+      updated[rowIndex][key] = base64Data;
+      setAwardTable(updated);
+
+      console.log("✅ File loaded successfully.");
+    };
+    reader.onerror = (err) => {
+      console.error("❌ File read error:", err);
+      alert("Error reading file. Please try again.");
+    };
+
+    reader.readAsDataURL(file);
+  }}
+/>
+
 
     {/* ✅ 3️⃣ — Show preview + remove button */}
     {row[key] && (

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { FaRegEdit, FaPlus, FaFileExport } from "react-icons/fa";
 import { BsFillEyeFill } from "react-icons/bs";
-import { IoSearch } from "react-icons/io5";
+import { IoSearch, IoClose } from "react-icons/io5";
 import ReactPaginate from "react-paginate";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -22,6 +22,20 @@ const UserArtist = () => {
   const [dateFilter, setDateFilter] = useState("");
   const [sortOption, setSortOption] = useState("latest");
   const [selectedUsers, setSelectedUsers] = useState([]);
+  
+  // Edit Modal States
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [editingUser, setEditingUser] = useState(null);
+  const [editForm, setEditForm] = useState({
+    customID: "",
+    firstName: "",
+    lastName: "",
+    email: "",
+    phoneNumber: "",
+    blocked: false,
+    approved: false,
+    verified: false
+  });
 
   const token = localStorage.getItem("accessToken");
   const navigate = useNavigate();
@@ -44,7 +58,6 @@ const UserArtist = () => {
         );
         const responseData = await response.json();
 
-        // ✅ Sort latest first on load
         const sorted = responseData.data.sort(
           (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
         );
@@ -75,7 +88,95 @@ const UserArtist = () => {
     }
   };
 
-  // 🔎 Search + Filters + Sorting
+  // Open Edit Modal
+  const handleEditClick = (user) => {
+    setEditingUser(user);
+    setEditForm({
+      customID: user.customID || "",
+      firstName: user.firstName || "",
+      lastName: user.lastName || "",
+      email: user.email || "",
+      phoneNumber: user.phoneNumber?.number || "",
+      blocked: user.blocked || false,
+      approved: user.approved || false,
+      verified: user.verified || false
+    });
+    setShowEditModal(true);
+  };
+
+  // Close Edit Modal
+  const handleCloseModal = () => {
+    setShowEditModal(false);
+    setEditingUser(null);
+  };
+
+  // Handle Form Input Changes
+  const handleInputChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setEditForm(prev => ({
+      ...prev,
+      [name]: type === 'checkbox' ? checked : value
+    }));
+  };
+
+  // Submit Edit Form
+  const handleEditSubmit = async (e) => {
+    e.preventDefault();
+    const toastId = toast.loading("Updating user...");
+
+    try {
+      const response = await fetch(`${BASE_URL}/admin/updateuser/${editingUser._id}`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          customID: editForm.customID,
+          firstName: editForm.firstName,
+          lastName: editForm.lastName,
+          email: editForm.email,
+          phoneNumber: {
+            number: editForm.phoneNumber
+          },
+          blocked: editForm.blocked,
+          approved: editForm.approved,
+          verified: editForm.verified
+        })
+      });
+
+      if (response.ok) {
+        const updatedUser = await response.json();
+        
+        // Update local data
+        setData(prev => prev.map(user => 
+          user._id === editingUser._id 
+            ? { ...user, ...editForm, customID: editForm.customID, phoneNumber: { number: editForm.phoneNumber } }
+            : user
+        ));
+
+        toast.update(toastId, {
+          render: "User updated successfully!",
+          type: "success",
+          isLoading: false,
+          autoClose: 2000,
+        });
+
+        handleCloseModal();
+      } else {
+        throw new Error("Update failed");
+      }
+    } catch (error) {
+      toast.update(toastId, {
+        render: `Error: ${error.message}`,
+        type: "error",
+        isLoading: false,
+        autoClose: 3000,
+      });
+    }
+  };
+
+  // Search + Filters + Sorting
   let filteredData = data.filter((item) => {
     const matchesSearch =
       item.email?.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -97,7 +198,6 @@ const UserArtist = () => {
     return matchesSearch && matchesStatus && matchesDate;
   });
 
-  // ✅ Sorting
   filteredData = filteredData.sort((a, b) => {
     switch (sortOption) {
       case "oldest":
@@ -110,12 +210,12 @@ const UserArtist = () => {
         return a.email.localeCompare(b.email);
       case "email-desc":
         return b.email.localeCompare(a.email);
-      default: // latest
+      default:
         return new Date(b.createdAt) - new Date(a.createdAt);
     }
   });
 
-  // 📄 Pagination
+  // Pagination
   const pageCount = Math.ceil(filteredData.length / itemsPerPage);
   const indexOfLastItem = (currentPage + 1) * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -125,7 +225,7 @@ const UserArtist = () => {
     setCurrentPage(selectedPage.selected);
   };
 
-  // Export to Excel function
+  // Export to Excel
   const exportToExcel = () => {
     if (!filteredData || filteredData.length === 0) {
       toast.warning("No data to export");
@@ -135,7 +235,6 @@ const UserArtist = () => {
     const toastId = toast.loading("Preparing export...");
 
     try {
-      // Create HTML table
       let tableHTML = `
         <table border="1">
           <thead>
@@ -172,12 +271,8 @@ const UserArtist = () => {
         `;
       });
 
-      tableHTML += `
-          </tbody>
-        </table>
-      `;
+      tableHTML += `</tbody></table>`;
 
-      // Create Blob and download
       const blob = new Blob([tableHTML], {
         type: "application/vnd.ms-excel;charset=utf-8;",
       });
@@ -205,7 +300,7 @@ const UserArtist = () => {
     }
   };
 
-  // 🗑️ Delete
+  // Delete
   const handleDelete = async (userId) => {
     if (!window.confirm("Delete this user?")) return;
 
@@ -239,7 +334,7 @@ const UserArtist = () => {
     }
   };
 
-  // 🗑️ Bulk Delete
+  // Bulk Delete
   const handleBulkDelete = async () => {
     if (selectedUsers.length === 0) {
       toast.warning("Select at least one user");
@@ -280,34 +375,6 @@ const UserArtist = () => {
     }
   };
 
-  // 🟢 Toggle Handlers
-  const toggleBlock = (e) => {
-    e.target.textContent =
-      e.target.textContent === "Block" ? "Unblock" : "Block";
-    e.target.className =
-      e.target.textContent === "Block"
-        ? "badge badge-block"
-        : "badge badge-unblock";
-  };
-
-  const toggleApproved = (e) => {
-    e.target.textContent =
-      e.target.textContent === "Rejected" ? "Approved" : "Rejected";
-    e.target.className =
-      e.target.textContent === "Approved"
-        ? "badge badge-approved"
-        : "badge badge-rejected";
-  };
-
-  const toggleVerify = (e) => {
-    e.target.textContent =
-      e.target.textContent === "Verify" ? "Verified" : "Verify";
-    e.target.className =
-      e.target.textContent === "Verify"
-        ? "badge badge-verify"
-        : "badge badge-verified";
-  };
-
   return (
     <>
       <AdminNavbar />
@@ -327,7 +394,7 @@ const UserArtist = () => {
           </div>
         </div>
 
-        {/* 🔎 Filters */}
+        {/* Filters */}
         <div className="filters-container">
           <div className="searchbar">
             <IoSearch className="searchicon" />
@@ -381,12 +448,12 @@ const UserArtist = () => {
           </select>
         </div>
 
-        {/* 🗑️ Bulk delete */}
+        {/* Bulk delete */}
         <button className="delete-selected-button" onClick={handleBulkDelete}>
           Delete Selected
         </button>
 
-        {/* 📊 Table */}
+        {/* Table */}
         <table>
           <thead>
             <tr>
@@ -409,9 +476,9 @@ const UserArtist = () => {
               <th>Email</th>
               <th>Phone</th>
               <th>Registered On</th>
-              <th>Block</th>
-              <th>Approve</th>
-              <th>Verify</th>
+              <th>Status</th>
+              <th>Approval</th>
+              <th>Verified</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -432,21 +499,21 @@ const UserArtist = () => {
                     }
                   />
                 </td>
-                <td>{item.customID}</td>
-                <td>{item.firstName}</td>
-                <td>{item.email}</td>
-                <td>{item.phoneNumber?.number}</td>
+                <td>{item.customID || <span style={{color: '#999', fontStyle: 'italic'}}>Not assigned</span>}</td>
+                <td>{item.firstName || <span style={{color: '#999', fontStyle: 'italic'}}>N/A</span>}</td>
+                <td>{item.email || <span style={{color: '#999', fontStyle: 'italic'}}>N/A</span>}</td>
+                <td>{item.phoneNumber?.number || <span style={{color: '#999', fontStyle: 'italic'}}>N/A</span>}</td>
                 <td>{new Date(item.createdAt).toLocaleString()}</td>
-                <td onClick={toggleBlock}>
+                <td>
                   <span
                     className={`badge ${
                       item.blocked ? "badge-unblock" : "badge-block"
                     }`}
                   >
-                    {item.blocked ? "Unblock" : "Block"}
+                    {item.blocked ? "Blocked" : "Active"}
                   </span>
                 </td>
-                <td onClick={toggleApproved}>
+                <td>
                   <span
                     className={`badge ${
                       item.approved ? "badge-approved" : "badge-rejected"
@@ -455,17 +522,21 @@ const UserArtist = () => {
                     {item.approved ? "Approved" : "Rejected"}
                   </span>
                 </td>
-                <td onClick={toggleVerify}>
+                <td>
                   <span
                     className={`badge ${
                       item.verified ? "badge-verified" : "badge-verify"
                     }`}
                   >
-                    {item.verified ? "Verified" : "Verify"}
+                    {item.verified ? "Verified" : "Not Verified"}
                   </span>
                 </td>
                 <td className="viewicon">
-                  {/* <FaRegEdit title="Edit" className="edit" /> */}
+                  <FaRegEdit 
+                    title="Edit" 
+                    className="edit" 
+                    onClick={() => handleEditClick(item)}
+                  />
                   <BsFillEyeFill
                     title="View"
                     className="view"
@@ -485,7 +556,7 @@ const UserArtist = () => {
           </tbody>
         </table>
 
-        {/* 📄 Pagination */}
+        {/* Pagination */}
         <ReactPaginate
           previousLabel={"<"}
           nextLabel={">"}
@@ -496,13 +567,122 @@ const UserArtist = () => {
           activeClassName={"active"}
         />
       </div>
+
+      {/* Edit Modal */}
+      {showEditModal && (
+        <div className="modal-overlay" onClick={handleCloseModal}>
+          <div className="modal-card" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-header">
+              <h3>Edit User Details</h3>
+              <IoClose className="modal-close" onClick={handleCloseModal} />
+            </div>
+            
+            <form onSubmit={handleEditSubmit} className="modal-form">
+              <div className="form-group">
+                <label>Custom ID</label>
+                <input
+                  type="text"
+                  name="customID"
+                  value={editForm.customID}
+                  onChange={handleInputChange}
+                  placeholder="e.g., eKAR2025NAI0066"
+                />
+              </div>
+
+              <div className="form-row">
+                <div className="form-group">
+                  <label>First Name</label>
+                  <input
+                    type="text"
+                    name="firstName"
+                    value={editForm.firstName}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </div>
+                
+                <div className="form-group">
+                  <label>Last Name</label>
+                  <input
+                    type="text"
+                    name="lastName"
+                    value={editForm.lastName}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </div>
+              </div>
+
+              <div className="form-group">
+                <label>Email</label>
+                <input
+                  type="email"
+                  name="email"
+                  value={editForm.email}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
+
+              <div className="form-group">
+                <label>Phone Number</label>
+                <input
+                  type="text"
+                  name="phoneNumber"
+                  value={editForm.phoneNumber}
+                  onChange={handleInputChange}
+                />
+              </div>
+
+              <div className="form-checkboxes">
+                <label className="checkbox-label">
+                  <input
+                    type="checkbox"
+                    name="blocked"
+                    checked={editForm.blocked}
+                    onChange={handleInputChange}
+                  />
+                  <span>Blocked</span>
+                </label>
+
+                <label className="checkbox-label">
+                  <input
+                    type="checkbox"
+                    name="approved"
+                    checked={editForm.approved}
+                    onChange={handleInputChange}
+                  />
+                  <span>Approved</span>
+                </label>
+
+                <label className="checkbox-label">
+                  <input
+                    type="checkbox"
+                    name="verified"
+                    checked={editForm.verified}
+                    onChange={handleInputChange}
+                  />
+                  <span>Verified</span>
+                </label>
+              </div>
+
+              <div className="modal-actions">
+                <button type="button" className="btn-cancel" onClick={handleCloseModal}>
+                  Cancel
+                </button>
+                <button type="submit" className="btn-submit">
+                  Modify
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </>
   );
 };
 
 export default UserArtist;
-
-
 
 
 // import React, { useState, useEffect } from "react";

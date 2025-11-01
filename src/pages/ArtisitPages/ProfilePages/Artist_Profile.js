@@ -5664,62 +5664,89 @@ src={
                                     />
                                   )}
 
-                             {key === "documentUrl" && (
+{key === "documentUrl" && (
   <div className="document-upload-wrapper">
     <input
-  type="file"
-  accept="image/*,application/pdf"
-  onChange={(e) => {
-    e.preventDefault();
-    const file = e.target.files[0];
-    if (!file) return;
+      type="file"
+      accept="image/*,application/pdf"
+      onChange={async (e) => {
+        e.preventDefault();
+        const file = e.target.files[0];
+        if (!file) return;
 
-    // ✅ 1️⃣ Size validation (1 MB = 1 * 1024 * 1024 bytes)
-    const maxSizeMB = 1;
-    const maxSizeBytes = maxSizeMB * 1024 * 1024;
+        // ✅ 1️⃣ Size validation (1 MB limit)
+        const maxSizeMB = 1;
+        const maxSizeBytes = maxSizeMB * 1024 * 1024;
 
-    console.log(`Selected file: ${file.name} (${(file.size / 1024).toFixed(2)} KB)`);
+        console.log(
+          `Selected file: ${file.name} (${(file.size / 1024).toFixed(2)} KB)`
+        );
 
-    if (file.size > maxSizeBytes) {
-      alert(`File too large! Must be under ${maxSizeMB} MB.`);
-      e.target.value = null;
-      return;
-    }
+        if (file.size > maxSizeBytes) {
+          alert(`File too large! Must be under ${maxSizeMB} MB.`);
+          e.target.value = null;
+          return;
+        }
 
-    // ✅ 2️⃣ FileReader to convert to Base64
-    const reader = new FileReader();
-    reader.onload = () => {
-      const base64Data = reader.result;
+        // ✅ 2️⃣ Create FormData for direct upload
+        const formData = new FormData();
+        formData.append("documents", file);
 
-      const updated = [...awardsTable];
-      updated[rowIndex][key] = base64Data;
-      setAwardTable(updated);
+        try {
+          const token = localStorage.getItem("token"); // or however you store JWT
 
-      console.log("✅ File loaded successfully.");
-    };
-    reader.onerror = (err) => {
-      console.error("❌ File read error:", err);
-      alert("Error reading file. Please try again.");
-    };
+          const res = await fetch(
+            `${process.env.REACT_APP_BASE_URL}/api/v1/artist/profile/award-documents/upload`,
+            {
+              method: "POST",
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+              body: formData,
+            }
+          );
 
-    reader.readAsDataURL(file);
-  }}
-/>
+          const data = await res.json();
 
+          if (res.ok) {
+            // ✅ Assuming backend returns { images: [url] }
+            const fileUrl = data.images?.[0];
+
+            const updated = [...awardsTable];
+            updated[rowIndex][key] = fileUrl;
+            setAwardTable(updated);
+
+            console.log("✅ File uploaded successfully:", fileUrl);
+          } else {
+            console.error("Upload failed:", data);
+            alert("Error uploading file. Please try again.");
+          }
+        } catch (error) {
+          console.error("❌ Upload error:", error);
+          alert("Upload failed. Please try again.");
+        }
+      }}
+    />
 
     {/* ✅ 3️⃣ — Show preview + remove button */}
     {row[key] && (
       <div className="uploaded-document">
-        <object
-          data={row[key]}
-          type={
-            row[key].startsWith("data:image")
-              ? "image/png"
-              : "application/pdf"
-          }
-          width="50px"
-          height="50px"
-        ></object>
+        {row[key].endsWith(".pdf") ? (
+          <object
+            data={row[key]}
+            type="application/pdf"
+            width="50px"
+            height="50px"
+          />
+        ) : (
+          <img
+            src={row[key]}
+            alt="Uploaded"
+            width="50px"
+            height="50px"
+            style={{ objectFit: "cover", borderRadius: "4px" }}
+          />
+        )}
         <button
           className="remove-cross"
           onClick={() => handleRemoveAwardDocument(rowIndex)}
@@ -5730,6 +5757,7 @@ src={
     )}
   </div>
 )}
+
 
                                   {key == "location" && (
                                     <select

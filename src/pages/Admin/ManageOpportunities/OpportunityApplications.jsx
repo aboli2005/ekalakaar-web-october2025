@@ -185,6 +185,38 @@ const OppApplications = () => {
     );
   };
 
+
+  // DELETE APPLICATION
+const handleDeleteApplication = async (id) => {
+  if (!window.confirm("Are you sure you want to delete this application?")) return;
+
+  const toastId = toast.loading("Deleting application...");
+
+  try {
+    const res = await fetch(`${BASE_URL}/admin/deleteapp/${id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    const result = await res.json();
+    toast.dismiss(toastId);
+
+    if (res.ok) {
+      toast.success("Application deleted successfully!");
+      // Remove the deleted item from local state
+      setData((prev) => prev.filter((app) => app._id !== id));
+    } else {
+      toast.error(result?.message || "Failed to delete application");
+    }
+  } catch (error) {
+    toast.dismiss(toastId);
+    toast.error("Error deleting application");
+  }
+};
+
   return (
     <div className="usercontainer">
       <AdminNavbar />
@@ -275,7 +307,13 @@ const OppApplications = () => {
                         onClick={() => exportToPDF(item)}
                         style={{ cursor: "pointer", color: "red" }}
                       />
-                      <RiDeleteBin6Line title="Delete" className="delete" />
+                      <RiDeleteBin6Line
+  title="Delete"
+  className="delete"
+  onClick={() => handleDeleteApplication(item._id)}
+  style={{ cursor: "pointer", color: "darkred" }}
+/>
+
                     </td>
                   </tr>
                 )

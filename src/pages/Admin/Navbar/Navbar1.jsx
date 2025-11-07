@@ -78,10 +78,10 @@ const AdminNavbar = () => {
         <Link to="/ArtsistManagement">Manage Artists</Link>
         <Link to="/Opportunity">Manage Opportunities</Link>
         <Link to="/PerformanceEnquiries">Performance Enquiries</Link>
-        <Link to="/Viewevents">Manage Events</Link>
-        <Link to="/admin/art">Manage Art</Link>
-        <Link to="/ManageSkills">Manage Skills</Link>
-        <Link to="/admin/blogs">Blogs</Link>
+        <Link to="/Viewevents">Manage Performances</Link>
+        <Link to="/admin/art">Art Management</Link>
+        <Link to="/ManageSkills">Skill Management</Link>
+        <Link to="/admin/blogs">Manage Blogs </Link>
         <Link to="/ManageLanguages">Manage Languages</Link>
         {/* <Link to="/admin/jobs">Manage Jobs</Link> */}
         {/* <Link to="/admin/banners">Manage Banners</Link> */}

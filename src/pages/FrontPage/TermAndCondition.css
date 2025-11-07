@@ -1,0 +1,125 @@
+/* Define theme color for easy reuse */
+:root {
+  --theme-color-red: #AD2F3B;
+  --theme-color-dark: #222222;
+  --theme-color-text: #333333;
+  --theme-color-light-gray: #f9f9f9;
+  --theme-color-border: #eeeeee;
+}
+
+/* Page container to provide a light background */
+.tc-page-container {
+  background-color: var(--theme-color-light-gray);
+  padding: 4rem 2rem;
+  font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* The main white content card */
+.tc-content-wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 3rem 4rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--theme-color-border);
+}
+
+/* Main Heading (using your theme color) */
+.tc-main-heading {
+  color: var(--theme-color-red);
+  font-size: 2.75rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid var(--theme-color-border);
+}
+
+.tc-last-updated {
+  font-style: italic;
+  color: #666;
+  text-align: center;
+  margin-bottom: 2.5rem;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* Wrapper for all the text content */
+.tc-content {
+  color: var(--theme-color-text);
+  line-height: 1.7;
+  font-size: 1rem;
+}
+
+/* Section headings (e.g., "1. CHANGE OF THESE TERMS") */
+.tc-content h2 {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: var(--theme-color-dark);
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+/* Standard paragraphs */
+.tc-content p {
+  margin-bottom: 1.25rem;
+}
+
+/* Special highlight for the "ACCESSING, BROWSING..." text */
+.tc-highlight {
+  font-weight: 600;
+  color: var(--theme-color-dark);
+  background-color: #fffaf0; /* A light cream/yellow background */
+  padding: 1rem;
+  border-radius: 8px;
+  border-left: 4px solid var(--theme-color-red);
+  margin: 2rem 0;
+}
+
+/* Unordered lists */
+.tc-content ul {
+  margin-bottom: 1.25rem;
+  padding-left: 1.5rem; /* Indents the list */
+  list-style-type: disc;
+}
+
+/* List items */
+.tc-content li {
+  margin-bottom: 0.5rem;
+}
+
+/* Links within the content */
+.tc-content a {
+  color: var(--theme-color-red);
+  text-decoration: none;
+  font-weight: 600;
+  transition: opacity 0.2s ease;
+}
+
+.tc-content a:hover {
+  text-decoration: underline;
+  opacity: 0.8;
+}
+
+/* Responsive adjustments for mobile */
+@media (max-width: 768px) {
+  .tc-page-container {
+    padding: 2rem 1rem;
+  }
+
+  .tc-content-wrapper {
+    padding: 2rem 1.5rem;
+  }
+
+  .tc-main-heading {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  .tc-content h2 {
+    font-size: 1.4rem;
+    margin-top: 2rem;
+  }
+}

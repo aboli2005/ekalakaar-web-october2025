@@ -132,7 +132,7 @@ border-radius: 50%;
   height: 396px;
 }
 
-.BasicProfile_AccSet h1 {
+/* .BasicProfile_AccSet h1 {
   color: #000;
   font-family: Poppins;
   font-size: 24px;
@@ -159,6 +159,38 @@ border-radius: 50%;
   height: 70px;
   border-radius: 10px;
   padding: 0px 20px;
+} */
+
+.BasicProfile_AccSet h1 {
+    color: #000;
+    font-family: Poppins;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin: 10px;
+    margin-top: 22px;
+    text-align: center; 
+}
+
+.BasicProfile_AccSet button {
+    color: #000;
+    font-family: Poppins;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    border: none;
+    margin-top: 10px;
+    background-color: white;
+    text-align: left;
+    width: 100%;
+    height: 70px;
+    border-radius: 10px;
+    padding: 0px 20px;
+    display: flex; 
+    align-items: center; 
+    gap: 15px; 
 }
 
 .BasicProfile_AccSet button.active {

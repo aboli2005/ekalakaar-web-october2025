@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,  useEffect } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
@@ -41,6 +41,32 @@ export function LoginPage() {
   const [otpVerified, setOtpVerified] = useState(false);
 
   const FORGOT_BASE = "https://api.ekalakaar.com/api/auth/forgot-password";
+
+
+   useEffect(() => {
+    const prefillEmail = localStorage.getItem('prefill_email');
+    const prefillPhoneNumber = localStorage.getItem('prefill_phone_number');
+    const prefillCountryCode = localStorage.getItem('prefill_country_code');
+
+    // If we find an email or phone number in local storage...
+    if (prefillEmail || prefillPhoneNumber) {
+        setFormData(prev => ({
+            ...prev,
+            email: prefillEmail || "",
+            phoneNumber: {
+                number: prefillPhoneNumber || "",
+                countryCode: prefillCountryCode || "+91"
+            }
+        }));
+
+        // IMPORTANT: Clean up the local storage items so they are not used again.
+        localStorage.removeItem('prefill_email');
+        localStorage.removeItem('prefill_phone_number');
+        localStorage.removeItem('prefill_country_code');
+    }
+  }, []); // The empty array ensures this effect runs only once when the page loads.
+  // ✅ ----------------------------------------------------
+
 
   function changeHandler(event) {
     const { name, value } = event.target;
@@ -122,6 +148,8 @@ export function LoginPage() {
 
       toast.dismiss(toastId);
 
+        console.log("Backend Response:", response);
+
       if (!response || response.error || response.status !== "success") {
         toast.error(
           response?.message ||
@@ -130,6 +158,7 @@ export function LoginPage() {
         );
         return;
       }
+       console.log("Data from Backend:", response.data);
 
       const { accessToken, refreshToken, role } = response.data || {};
 

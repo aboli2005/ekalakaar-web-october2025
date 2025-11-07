@@ -58,7 +58,9 @@
   font-size: 0.95rem;
   font-weight: 600;
   color: #666;
+  white-space: nowrap; /* prevents line break */
 }
+
 .stat-value {
   font-size: 1.5rem;
   font-weight: 700;

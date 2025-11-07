@@ -85,7 +85,7 @@ function ContactUs() {
         { name: "Profile", icon: <FaUser />, link: "/Artist_Profile" },
         { name: "Portfolio", icon: <FaBriefcase />, link: "/portfolioDisplay" },
         { name: "Opportunities", icon: <FaBriefcase />, link: "/Artist_Opportunities" },
-        { name: "Status of Application", icon: <FaBook />, link: "/statusOfApplication" },
+        { name: "Application Status", icon: <FaBook />, link: "/statusOfApplication" },
         { name: "Skill Development", icon: <FaBook />, link: "/CourseCategories" },
         { name: "News", icon: <FaNewspaper />, link: "/latestNews" },
         { name: "Contact Us", icon: <FaEnvelope />, link: "/contactUs" },

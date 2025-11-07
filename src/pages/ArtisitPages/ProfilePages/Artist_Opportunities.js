@@ -79,7 +79,7 @@
 //     { name: "Profile", icon: <FaUser />, link: "/Artist_Profile" },
 //     { name: "Portfolio", icon: <FaBriefcase />, link: "/portfolioDisplay" },
 //     { name: "Opportunities", icon: <FaBriefcase />, link: "/Artist_Opportunities" },
-//     { name: "Status of Application", icon: <FaBook />, link: "/statusOfApplication" },
+//     { name: "Application Status", icon: <FaBook />, link: "/statusOfApplication" },
 //     { name: "Skill Development", icon: <FaBook />, link: "/CourseCategories" },
 //     { name: "News", icon: <FaNewspaper />, link: "/latestNews" },
 //     { name: "Contact Us", icon: <FaEnvelope />, link: "/contactUs" },
@@ -756,7 +756,7 @@ export function Artist_Opportunities() {
     { name: "Profile", icon: <FaUser />, link: "/Artist_Profile" },
     { name: "Portfolio", icon: <FaBriefcase />, link: "/portfolioDisplay" },
     { name: "Opportunities", icon: <FaBriefcase />, link: "/Artist_Opportunities" },
-    { name: "Status of Application", icon: <FaBook />, link: "/statusOfApplication" },
+    { name: "Application Status", icon: <FaBook />, link: "/statusOfApplication" },
     { name: "Skill Development", icon: <FaBook />, link: "/CourseCategories" },
     { name: "News", icon: <FaNewspaper />, link: "/latestNews" },
     { name: "Contact Us", icon: <FaEnvelope />, link: "/contactUs" },
@@ -1163,7 +1163,7 @@ export function Artist_Opportunities() {
 
               {/* this is all  opportunity section */}
               <div className="OpportunitiesPage_displayjobs" style={{marginLeft:"25px", marginRight:"20px"}}>
-                <h4>Recommended Jobs</h4>
+                <h4>Recommended Performances</h4>
 
                 {eventToMap.map((job, index) => (
                   <div className="OpportunitiesPage_displayonejob" key={index} style={{height:"400px"}}>
@@ -1269,7 +1269,7 @@ export function Artist_Opportunities() {
                                       quotedPrice: e.target.value
                                     }))} required/>
                             </div>
-                            <h1>Why do you want to Apply for this Role?</h1>
+                            <h1>Why do you want to apply for this opportunity?</h1>
                                 <textarea
                                   name="answer"
                                   value={applyAns.answer}

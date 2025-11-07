@@ -358,6 +358,286 @@
 // export default Signup;
 
 
+// import { useNavigate } from "react-router-dom";
+// import { useState } from "react";
+// import { makeUnauthenticatedPOSTRequest } from "../../services/serverHelper";
+// import { toast } from "react-toastify";
+// import { endpoints } from "../../services/apis";
+// import "react-toastify/dist/ReactToastify.css";
+
+// import logo from '../../../assets/ek-logo.png';
+// import loginPage from '../../../assets/Untitled design (2).png';
+// import Footer from '../../../components/Footer';
+
+
+// const numbersArray = Array.from({ length: 250 }, (_, index) => index + 1);
+
+// function Signup() {
+//   const navigate = useNavigate();
+//   const [checkbox, setCheckbox] = useState(true);
+//   const [passwordVisible, setPasswordVisible] = useState(false);
+
+//   const [formData, setFormData] = useState({
+//     role: "Artist",
+//     firstName: "",
+//     lastName: "",
+//     email: "",
+//     password: "",
+//     passwordConfirm: "",
+//     phoneNumber: {
+//       countryCode: "+91",
+//       number: ""
+//     }
+//   });
+
+//   function changeHandler(event) {
+//     const { name, value } = event.target;
+//     if (name.startsWith("phoneNumber.")) {
+//       setFormData((prev) => ({
+//         ...prev,
+//         phoneNumber: {
+//           ...prev.phoneNumber,
+//           [name.split(".")[1]]: value
+//         }
+//       }));
+//     } else {
+//       setFormData((prev) => ({ ...prev, [name]: value }));
+//     }
+//   }
+
+//   const togglePasswordVisibility = () => {
+//     setPasswordVisible(!passwordVisible);
+//   };
+
+//   const Otp_Send = async (reqBody) => {
+//     try {
+//       const response = await fetch(endpoints.REGISTER_OTP_SEND, {
+//         method: "POST",
+//         headers: { "content-Type": "application/json" },
+//         body: JSON.stringify(reqBody)
+//       });
+//       if (response.status === 200) {
+//         toast.success("Otp has been sent...", { position: "top-center" });
+//       }
+//     } catch (error) {
+//       console.log(error);
+//       toast.error(error.message);
+//     }
+//   };
+
+//   const submitHandler = async (event) => {
+//     event.preventDefault();
+//     if (!checkbox) return toast.error("Agree to the Terms and Conditions");
+//     if (formData.password !== formData.passwordConfirm)
+//       return toast.error("Passwords do not match", { position: "top-center" });
+//     if (formData.phoneNumber.number.length !== 10)
+//       return toast.error("Please provide a valid phone number", {
+//         position: "top-center"
+//       });
+
+//     const toastId = toast.loading("Loading...");
+//     try {
+//       const response = await makeUnauthenticatedPOSTRequest(
+//         endpoints.REGISTER_API,
+//         formData
+//       );
+
+//       if (response.status === "error") {
+//         const msg = response.message;
+//         if (msg?.includes("valid email")) toast.error("Email is not valid");
+//         else if (msg?.includes("already in use"))
+//           toast.error("Email is already registered");
+//         else if (msg?.includes("valid phoneNumber"))
+//           toast.error("Please provide a valid phone number");
+//         else toast.error(msg);
+//       } else if (response.status === "success") {
+//         const reqBody = {
+//           email: formData.email,
+//           mobileNu: formData.phoneNumber.number,
+//           registerBy:
+//             formData.email && formData.phoneNumber.number
+//               ? "both"
+//               : formData.email
+//               ? "email"
+//               : "mobile"
+//         };
+//         Otp_Send(reqBody);
+//         toast.success("Successfully registered", { position: "top-center" });
+//         navigate(`/verifyCode/${formData.email}`, {
+//   state: { mobile: formData.phoneNumber.number },
+// });
+
+//       }
+//     } catch (error) {
+//       console.log(error);
+//     }
+//     toast.dismiss(toastId);
+//   };
+
+//   return (
+//     <>
+//       <div className="relative min-h-screen flex flex-col">
+//         {/* Background */}
+//         <div className="absolute top-0 left-0 w-full h-full z-0">
+//           <img
+//             src={loginPage}
+//             alt="background"
+//             className="w-full h-full object-cover"
+//           />
+//           <div className="absolute top-0 left-0 w-full h-full bg-black/50"></div>
+//         </div>
+
+//         {/* Main form card */}
+//         <div className="relative z-10 flex-grow flex justify-center items-center px-4 py-8">
+//           <div className="bg-white p-8 rounded-2xl shadow-md w-[450px] max-w-full max-[440px]:h-full">
+//             <div className="mb-4 text-center">
+//               <img src={logo} alt="logo" className="h-14 mx-auto" />
+//               <h2 className="text-xl font-bold text-[#AD2F3B] mt-2">
+//                 Sign up as Artist
+//               </h2>
+//               <p className="text-gray-600 text-sm">Create your account</p>
+//             </div>
+
+//             <form onSubmit={submitHandler} className="space-y-4">
+//               {/* First Name & Last Name */}
+//               <div className="flex gap-3">
+//                 <input
+//                   required
+//                   type="text"
+//                   name="firstName"
+//                   placeholder="First Name"
+//                   value={formData.firstName}
+//                   onChange={changeHandler}
+//                   className="w-1/2 border px-3 py-2 rounded-md"
+//                 />
+//                 <input
+//                   required
+//                   type="text"
+//                   name="lastName"
+//                   placeholder="Last Name"
+//                   value={formData.lastName}
+//                   onChange={changeHandler}
+//                   className="w-1/2 border px-3 py-2 rounded-md"
+//                 />
+//               </div>
+
+//               {/* Contact */}
+//               <div className="flex gap-2">
+//                 <select
+//                   name="phoneNumber.countryCode"
+//                   value={formData.phoneNumber.countryCode || "+91"}
+//                   onChange={changeHandler}
+//                   className="w-[30%] border px-2 py-2 rounded-md"
+//                 >
+//                   {numbersArray.map((number) => (
+//                     <option key={number} value={`+${number}`}>
+//                       +{number}
+//                     </option>
+//                   ))}
+//                 </select>
+//                 <input
+//                   required
+//                   name="phoneNumber.number"
+//                   type="number"
+//                   pattern="[0-9]{10}"
+//                   placeholder="Phone Number"
+//                   maxLength={10}
+//                   value={formData.phoneNumber.number}
+//                   onChange={changeHandler}
+//                   className="w-full border px-3 py-2 rounded-md"
+//                 />
+//               </div>
+
+//               {/* Email */}
+//               <input
+//                 required
+//                 type="email"
+//                 name="email"
+//                 placeholder="Email address"
+//                 value={formData.email}
+//                 onChange={changeHandler}
+//                 className="w-full border px-3 py-2 rounded-md"
+//               />
+
+//               {/* Password */}
+//               <div className="relative">
+//                 <input
+//                   required
+//                   name="password"
+//                   placeholder="Password"
+//                   minLength={8}
+//                   type={passwordVisible ? "text" : "password"}
+//                   value={formData.password}
+//                   onChange={changeHandler}
+//                   className="w-full border px-3 py-2 rounded-md pr-10"
+//                 />
+//                 <span
+//                   onClick={togglePasswordVisibility}
+//                   className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 cursor-pointer"
+//                 >
+//                   <i
+//                     className={`fas ${
+//                       passwordVisible ? "fa-eye-slash" : "fa-eye"
+//                     }`}
+//                   ></i>
+//                 </span>
+//               </div>
+
+//               {/* Confirm Password */}
+//               <input
+//                 required
+//                 name="passwordConfirm"
+//                 type={passwordVisible ? "text" : "password"}
+//                 value={formData.passwordConfirm}
+//                 onChange={changeHandler}
+//                 placeholder="Confirm Password"
+//                 className="w-full border px-3 py-2 rounded-md"
+//               />
+
+//               {/* Terms & conditions */}
+//               <div className="flex items-center gap-2">
+//                 <input
+//                   type="checkbox"
+//                   checked={checkbox}
+//                   onChange={() => setCheckbox((prev) => !prev)}
+//                 />
+//                 <p
+//                   onClick={() => navigate("/termAndCondition")}
+//                   className="text-sm text-red-600 cursor-pointer"
+//                 >
+//                   I Agree to the Terms and Conditions
+//                 </p>
+//               </div>
+
+//               {/* Submit */}
+//               <button
+//                 type="submit"
+//                 className="w-full bg-[#AD2F3B] text-white font-semibold py-2 rounded-full hover:bg-[#922634] transition"
+//               >
+//                 Register
+//               </button>
+
+//               <p className="text-sm text-center mt-2 text-gray-600">
+//                 Already have an account?{" "}
+//                 <span
+//                   className="text-[#AD2F3B] cursor-pointer"
+//                   onClick={() => navigate("/Login")}
+//                 >
+//                   Login
+//                 </span>
+//               </p>
+//             </form>
+//           </div>
+//         </div>
+//       </div>
+//       <Footer />
+//     </>
+//   );
+// }
+
+// export default Signup;
+
+
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { makeUnauthenticatedPOSTRequest } from "../../services/serverHelper";
@@ -368,7 +648,6 @@ import "react-toastify/dist/ReactToastify.css";
 import logo from '../../../assets/ek-logo.png';
 import loginPage from '../../../assets/Untitled design (2).png';
 import Footer from '../../../components/Footer';
-
 
 const numbersArray = Array.from({ length: 250 }, (_, index) => index + 1);
 
@@ -463,10 +742,16 @@ function Signup() {
         };
         Otp_Send(reqBody);
         toast.success("Successfully registered", { position: "top-center" });
-        navigate(`/verifyCode/${formData.email}`, {
-  state: { mobile: formData.phoneNumber.number },
-});
 
+        // ✅ --- SAVE USER DETAILS FOR PRE-FILLING LOGIN FORM ---
+        localStorage.setItem('prefill_email', formData.email);
+        localStorage.setItem('prefill_phone_number', formData.phoneNumber.number);
+        localStorage.setItem('prefill_country_code', formData.phoneNumber.countryCode);
+        // ✅ ----------------------------------------------------
+
+        navigate(`/verifyCode/${formData.email}`, {
+          state: { mobile: formData.phoneNumber.number },
+        });
       }
     } catch (error) {
       console.log(error);
@@ -487,147 +772,55 @@ function Signup() {
           <div className="absolute top-0 left-0 w-full h-full bg-black/50"></div>
         </div>
 
-        {/* Main form card */}
+        {/* Main form card (UI remains the same) */}
         <div className="relative z-10 flex-grow flex justify-center items-center px-4 py-8">
-          <div className="bg-white p-8 rounded-2xl shadow-md w-[450px] max-w-full max-[440px]:h-full">
-            <div className="mb-4 text-center">
-              <img src={logo} alt="logo" className="h-14 mx-auto" />
-              <h2 className="text-xl font-bold text-[#AD2F3B] mt-2">
-                Sign up as Artist
-              </h2>
-              <p className="text-gray-600 text-sm">Create your account</p>
+            <div className="bg-white p-8 rounded-2xl shadow-md w-[450px] max-w-full max-[440px]:h-full">
+                <div className="mb-4 text-center">
+                    <img src={logo} alt="logo" className="h-14 mx-auto" />
+                    <h2 className="text-xl font-bold text-[#AD2F3B] mt-2">
+                        Sign up as Artist
+                    </h2>
+                    <p className="text-gray-600 text-sm">Create your account</p>
+                </div>
+                <form onSubmit={submitHandler} className="space-y-4">
+                    {/* All form inputs remain the same */}
+                    <div className="flex gap-3">
+                        <input required type="text" name="firstName" placeholder="First Name" value={formData.firstName} onChange={changeHandler} className="w-1/2 border px-3 py-2 rounded-md" />
+                        <input required type="text" name="lastName" placeholder="Last Name" value={formData.lastName} onChange={changeHandler} className="w-1/2 border px-3 py-2 rounded-md" />
+                    </div>
+                    <div className="flex gap-2">
+                        <select name="phoneNumber.countryCode" value={formData.phoneNumber.countryCode || "+91"} onChange={changeHandler} className="w-[30%] border px-2 py-2 rounded-md">
+                            {numbersArray.map((number) => (
+                                <option key={number} value={`+${number}`}> +{number} </option>
+                            ))}
+                        </select>
+                        <input required name="phoneNumber.number" type="number" pattern="[0-9]{10}" placeholder="Phone Number" maxLength={10} value={formData.phoneNumber.number} onChange={changeHandler} className="w-full border px-3 py-2 rounded-md" />
+                    </div>
+                    <input required type="email" name="email" placeholder="Email address" value={formData.email} onChange={changeHandler} className="w-full border px-3 py-2 rounded-md" />
+                    <div className="relative">
+                        <input required name="password" placeholder="Password" minLength={8} type={passwordVisible ? "text" : "password"} value={formData.password} onChange={changeHandler} className="w-full border px-3 py-2 rounded-md pr-10" />
+                        <span onClick={togglePasswordVisibility} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 cursor-pointer">
+                            <i className={`fas ${passwordVisible ? "fa-eye-slash" : "fa-eye"}`}></i>
+                        </span>
+                    </div>
+                    <input required name="passwordConfirm" type={passwordVisible ? "text" : "password"} value={formData.passwordConfirm} onChange={changeHandler} placeholder="Confirm Password" className="w-full border px-3 py-2 rounded-md" />
+                    <div className="flex items-center gap-2">
+                        <input type="checkbox" checked={checkbox} onChange={() => setCheckbox((prev) => !prev)} />
+                        <p onClick={() => navigate("/termAndCondition")} className="text-sm text-red-600 cursor-pointer">
+                            I Agree to the Terms and Conditions
+                        </p>
+                    </div>
+                    <button type="submit" className="w-full bg-[#AD2F3B] text-white font-semibold py-2 rounded-full hover:bg-[#922634] transition">
+                        Register
+                    </button>
+                    <p className="text-sm text-center mt-2 text-gray-600">
+                        Already have an account?{" "}
+                        <span className="text-[#AD2F3B] cursor-pointer" onClick={() => navigate("/Login")}>
+                            Login
+                        </span>
+                    </p>
+                </form>
             </div>
-
-            <form onSubmit={submitHandler} className="space-y-4">
-              {/* First Name & Last Name */}
-              <div className="flex gap-3">
-                <input
-                  required
-                  type="text"
-                  name="firstName"
-                  placeholder="First Name"
-                  value={formData.firstName}
-                  onChange={changeHandler}
-                  className="w-1/2 border px-3 py-2 rounded-md"
-                />
-                <input
-                  required
-                  type="text"
-                  name="lastName"
-                  placeholder="Last Name"
-                  value={formData.lastName}
-                  onChange={changeHandler}
-                  className="w-1/2 border px-3 py-2 rounded-md"
-                />
-              </div>
-
-              {/* Contact */}
-              <div className="flex gap-2">
-                <select
-                  name="phoneNumber.countryCode"
-                  value={formData.phoneNumber.countryCode || "+91"}
-                  onChange={changeHandler}
-                  className="w-[30%] border px-2 py-2 rounded-md"
-                >
-                  {numbersArray.map((number) => (
-                    <option key={number} value={`+${number}`}>
-                      +{number}
-                    </option>
-                  ))}
-                </select>
-                <input
-                  required
-                  name="phoneNumber.number"
-                  type="number"
-                  pattern="[0-9]{10}"
-                  placeholder="Phone Number"
-                  maxLength={10}
-                  value={formData.phoneNumber.number}
-                  onChange={changeHandler}
-                  className="w-full border px-3 py-2 rounded-md"
-                />
-              </div>
-
-              {/* Email */}
-              <input
-                required
-                type="email"
-                name="email"
-                placeholder="Email address"
-                value={formData.email}
-                onChange={changeHandler}
-                className="w-full border px-3 py-2 rounded-md"
-              />
-
-              {/* Password */}
-              <div className="relative">
-                <input
-                  required
-                  name="password"
-                  placeholder="Password"
-                  minLength={8}
-                  type={passwordVisible ? "text" : "password"}
-                  value={formData.password}
-                  onChange={changeHandler}
-                  className="w-full border px-3 py-2 rounded-md pr-10"
-                />
-                <span
-                  onClick={togglePasswordVisibility}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 cursor-pointer"
-                >
-                  <i
-                    className={`fas ${
-                      passwordVisible ? "fa-eye-slash" : "fa-eye"
-                    }`}
-                  ></i>
-                </span>
-              </div>
-
-              {/* Confirm Password */}
-              <input
-                required
-                name="passwordConfirm"
-                type={passwordVisible ? "text" : "password"}
-                value={formData.passwordConfirm}
-                onChange={changeHandler}
-                placeholder="Confirm Password"
-                className="w-full border px-3 py-2 rounded-md"
-              />
-
-              {/* Terms & conditions */}
-              <div className="flex items-center gap-2">
-                <input
-                  type="checkbox"
-                  checked={checkbox}
-                  onChange={() => setCheckbox((prev) => !prev)}
-                />
-                <p
-                  onClick={() => navigate("/termAndCondition")}
-                  className="text-sm text-red-600 cursor-pointer"
-                >
-                  I Agree to the Terms and Conditions
-                </p>
-              </div>
-
-              {/* Submit */}
-              <button
-                type="submit"
-                className="w-full bg-[#AD2F3B] text-white font-semibold py-2 rounded-full hover:bg-[#922634] transition"
-              >
-                Register
-              </button>
-
-              <p className="text-sm text-center mt-2 text-gray-600">
-                Already have an account?{" "}
-                <span
-                  className="text-[#AD2F3B] cursor-pointer"
-                  onClick={() => navigate("/Login")}
-                >
-                  Login
-                </span>
-              </p>
-            </form>
-          </div>
         </div>
       </div>
       <Footer />

@@ -19,6 +19,7 @@
     "jspdf-autotable": "^5.0.2",
     "lucide-react": "^0.487.0",
     "npm": "^10.9.3",
+    "papaparse": "^5.5.3",
     "react": "^19.1.0",
     "react-bootstrap": "^2.10.10",
     "react-calendar": "^5.1.0",

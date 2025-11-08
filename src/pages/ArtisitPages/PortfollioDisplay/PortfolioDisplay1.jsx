@@ -248,6 +248,11 @@ const getFullImageUrl = (imageValue) => {
           </div>
 
           <div className="portfolio-document">
+  {/* ===== WATERMARK (PRINT ONLY) ===== */}
+            <div className="watermark-container">
+                <div className="watermark-text">eKalakaar</div>
+            </div>
+
             {/* ===== HEADER ===== */}
             <header className="cv-header">
               <div className="cv-header-left">

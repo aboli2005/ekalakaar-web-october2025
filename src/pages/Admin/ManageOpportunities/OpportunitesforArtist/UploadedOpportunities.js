@@ -1575,7 +1575,7 @@ function UploadOpportunities() {
                         <strong>Name of Art*</strong>
                       </label>
                       <select
-                        required
+                        // required
                         value={formData?.artName}
                         name="artName"
                         onChange={inputChangeHandler}

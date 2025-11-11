@@ -1047,7 +1047,7 @@ function UploadOpportunities() {
                       <label>
                         <strong>Name of Art*</strong>
                       </label>
-                      <select required value={formData?.artName} name="artName" onChange={inputChangeHandler} style={{ width: "100%", height: "50px", boxShadow: "#a2a2a2 0px 3px", marginTop: "10px" }}>
+                      <select  value={formData?.artName} name="artName" onChange={inputChangeHandler} style={{ width: "100%", height: "50px", boxShadow: "#a2a2a2 0px 3px", marginTop: "10px" }}>
                         <option value="" disabled hidden>
                           Select
                         </option>

@@ -2693,46 +2693,53 @@ const handleRemoveImage = async (index) => {
               <b></b>
             </p> */}
 
-<p
-  style={{
-    fontWeight: "500",
-    fontSize: "30px",
-    marginTop: "15px",
-    display: "flex",
-    alignItems: "center",
-    gap: "10px", // space between text and SVG
-  }}
->
-  {basicFormData.firstName.toUpperCase()}{" "}
-  {basicFormData.lastName.toUpperCase()}(eK ID: 12334)
+<div style={{ marginTop: '15px', fontFamily: 'Poppins, sans-serif' }}>
+  {/* Line 1: Name and Blue Tick */}
+  <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+    <span style={{ fontWeight: 500, fontSize: '30px' }}>
+      {basicFormData.firstName.toUpperCase()} {basicFormData.lastName.toUpperCase()}
+    </span>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="35"
+      height="35"
+      viewBox="0 0 50 50"
+      fill="none"
+    >
+      <circle cx="25" cy="25" r="25" fill="#61C6FF" />
+      <path
+        d="M14 26.7143L19.4935 32.2791C19.885 32.6757 20.5252 32.6757 20.9168 32.2791L36 17"
+        stroke="white"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+    </svg>
+  </div>
 
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="35"
-    height="35"
-    viewBox="0 0 50 50"
-    fill="none"
-  >
-    <circle cx="25" cy="25" r="25" fill="#61C6FF" />
-    <path
-      d="M14 26.7143L19.4935 32.2791C19.885 32.6757 20.5252 32.6757 20.9168 32.2791L36 17"
-      stroke="white"
-      strokeWidth="2"
-      strokeLinecap="round"
-    />
-  </svg>
-</p>
-
+  {/* Line 2: eK ID */}
+  <p style={{ fontWeight: 400, fontSize: '18px', color: '#555', margin: 0 }}>
+    (eK ID: {basicFormData.customID})
+  </p>
+</div>
 
 
-            <button
+<div className="BasicProfile_avatar">
+    <div className="avatar-buttons-container">
+        <button  onClick={handleButtonClick} className="BasicProfile_editavatar">Upload/Edit Profile Picture</button>
+        <button onClick={handleRemoveAvatar}  className="BasicProfile_removeavatar">Remove Avatar</button>
+    </div>
+</div>
+
+
+
+            {/* <button
               onClick={handleButtonClick}
               className="BasicProfile_editavatar"
             >
               Upload/Edit Profile Picture
               
             </button>
-            <button onClick={handleRemoveAvatar} className="BasicProfile_removeavatar">Remove Avatar</button>
+            <button onClick={handleRemoveAvatar} className="BasicProfile_removeavatar">Remove Avatar</button> */}
           </div>
         </div>
 

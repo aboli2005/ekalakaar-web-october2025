@@ -813,8 +813,9 @@ const PinFetch = async (value) => {
   }}
 >
   <span>
-    {basicFormData?.firstName?.toUpperCase()}{" "}
-    {basicFormData?.lastName?.toUpperCase()} (eK ID: 12334)
+    {basicFormData?.personalInfo.firstName?.toUpperCase()}{" "}
+    {basicFormData?.personalInfo.lastName?.toUpperCase()}   
+    {/* (eK ID: {basicFormData?.customId}) */}
   </span>
   
   <svg

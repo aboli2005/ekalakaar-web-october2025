@@ -533,6 +533,8 @@ import UploadBlog from "../FrontPage/BlogManagement/UploadBlog";
 import PrivacyPolicy from '../Footer/PrivacyPolicy'; 
 import BlogList from "../FrontPage/BlogManagement/BlogList";
 import BlogView from "../FrontPage/BlogManagement/BlogView";
+import AdminNews from "./NewsManagement/AdminNews";
+
 
 
 export default function RouterPage() {
@@ -719,6 +721,8 @@ export default function RouterPage() {
             <Route path="/UploadBlog" element={<UploadBlog />} />
             <Route path="/admin/blog-list" element={<BlogList />} />
             <Route path="/admin/blog-view/:id" element={<BlogView />} />
+            <Route path="/admin/news" element={<AdminNews />} />
+
           </>
         )}
 

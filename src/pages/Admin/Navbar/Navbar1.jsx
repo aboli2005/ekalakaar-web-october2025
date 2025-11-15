@@ -42,12 +42,16 @@ const AdminNavbar = () => {
         className="sidenav" 
         style={{ width: sideNavWidth + "px" }}
       >
-        <div className="sidebar-header">
-          <button onClick={closeNav} className="header-icon">
-            &times;
-          </button>
-          <img src={img} alt="Logo" className="sidebarlogo"/>
-        </div>
+   <div className="sidebar-header">
+  <div className="sidebar-logo-wrapper">
+    <img src={img} alt="Logo" className="sidebarlogo"/>
+    <button onClick={closeNav} className="header-icon">
+      &times;
+    </button>
+  </div>
+</div>
+
+
 
         <Link to="/AdminDashboard">Dashboard</Link>
         <button

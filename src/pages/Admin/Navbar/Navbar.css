@@ -30,10 +30,35 @@
   border-radius: 20px;
 }
 
-.sidebar-header{
+.sidebar-header {
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-logo-wrapper {
+  background: #fff;
   display: flex;
-  flex-direction: row-reverse;
-  justify-content: space-around;
+  align-items: center;
+  margin-top: 0;          /* Remove any margin */
+  /* padding-top: 12px;  */
+  justify-content: space-between;
+  padding: 12px 18px 12px 18px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.sidebarlogo {
+  height: 60px;
+  width: auto;
+  display: block;
+}
+
+.header-icon {
+  background: none;
+  border: none;
+  color: #ad2f3b;
+  font-size: 32px;
+  cursor: pointer;
+  margin-left: 18px; /* Space between logo and cross */
 }
 
 .first_nav_image{
@@ -61,10 +86,10 @@
   z-index: 1;
   top: 0;
   left: 0;
-  background-color: white;
+  background-color: #ad2f3b;
   overflow-x: hidden;
   transition: 0.5s;
- padding: 30px 0px 0px 0px ;
+ /* padding: 30px 0px 0px 0px ; */
 }
 
 .sidenav a {
@@ -74,7 +99,7 @@
   color: black;
   display: block;
   transition: 0.3s;
-  color: #818181;
+  color: #ffff;
 
   font-family: Poppins;
   font-size: 18px;
@@ -104,7 +129,7 @@
   font-style: normal;
   font-weight: 500;
   line-height: normal;
-  color: #818181;
+  color: #ffff;
   display: block;
   border: none;
   background: none;

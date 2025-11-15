@@ -112,9 +112,9 @@ export default function Dashboard() {
   }, []);
 
   const stats = [
-    { title: "Total Patrons", value: totalPatrons, link: "/Patron", icon: <FaUserTie /> },
-    { title: "Total Artists", value: totalArtists, link: "/Artist", icon: <FaUsers /> },
-    { title: "Total Partners", value: totalPartners, link: "/partner", icon: <FaHandshake /> },
+    { title: "Patrons", value: totalPatrons, link: "/Patron", icon: <FaUserTie /> },
+    { title: "Artists", value: totalArtists, link: "/Artist", icon: <FaUsers /> },
+    { title: "Partners", value: totalPartners, link: "/partner", icon: <FaHandshake /> },
     { title: "Art Lovers", value: totalArtlovers, link: "/ArtLover", icon: <FaHeart /> },
     { title: "Opportunities", value: totalOpportunities, link: "/Opportunity", icon: <FaBriefcase /> },
     { title: "Applications", value: totalApplications, link: "/DashboardApplication", icon: <FaFileAlt /> },

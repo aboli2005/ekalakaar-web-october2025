@@ -1225,7 +1225,7 @@ export function LoginPage() {
 
       const toastId = toast.loading("Logging in with Google...");
       const response = await makeUnauthenticatedPOSTRequest(
-        endpoints.LOGIN_API,
+        endpoints.LOGIN_WITH_EMAIL,
         {
           email: decoded.email,
           googleIdToken: credentialResponse.credential,

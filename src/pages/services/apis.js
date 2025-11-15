@@ -75,6 +75,7 @@ export const endpoints = {
   REGISTER_OTP_SEND : BASE_URL + "/auth/register-otp/send-otp",
   VERIFY_OTP : BASE_URL + "/auth/verify-register-otp/verify-otp",
   LOGIN_API: BASE_URL + "/auth/login",
+  LOGIN_WITH_EMAIL: BASE_URL + "/auth/login-with-email",
   FORGOTPASSWORD_SENDOTP_API: BASE_URL + "/auth/forgot-password/send-otp",
   FORGOTPASSWORD_VERIFYOTP_API: BASE_URL + "/auth/forgot-password/verify-otp",
   RESETPASSWORD_API: BASE_URL + "/auth/forgot-password/reset-password",

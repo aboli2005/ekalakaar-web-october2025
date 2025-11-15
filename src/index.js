@@ -29,7 +29,7 @@ import './index.css';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <GoogleOAuthProvider clientId="YOUR_GOOGLE_CLIENT_ID">
+    <GoogleOAuthProvider clientId="355448742670-52rmghfe19378hocpkt30n8j8dcnbr88.apps.googleusercontent.com">
       <Provider store={store}>
         <BrowserRouter>
           <App />
